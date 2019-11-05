@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2bb587eaa0ac6b4d82709f26a26e403, type: 3}
-  m_Name: TestingItem
+  m_Script: {fileID: 11500000, guid: 162a310c8dca5cb4b8c56d86114f8151, type: 3}
+  m_Name: Item_Health_Potion
   m_EditorClassIdentifier: 
-  itemName: Tester
-  itemSlug: item_tester
-  itemDescription: The best testing Item.
-  stackable: 0
-  itemIcon: {fileID: 0}
+  itemName: Health Potion
+  itemDescription: Restores 5 HP
+  maxStackAmount: 1
+  itemIcon: {fileID: -3543485243834422511, guid: e06e22735e67ba242b1f8f9a90f1edff,
+    type: 3}

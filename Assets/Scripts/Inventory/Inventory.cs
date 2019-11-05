@@ -4,64 +4,31 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    #region Singleton
+    [SerializeField] private List<Item> items = new List<Item>();
+    [SerializeField] private int maxInventorySize = 20;
+    [SerializeField] private Item testItemToAdd;
 
-    public static Inventory instance;
+    public List<Item> Items => items;
 
-    private void Awake()
+    public System.Action onItemsChanged;
+
+    public void AddItem(Item itemToAdd)
     {
-        if(instance != null)
-        {
-            Debug.LogWarning("More than one instance of inventory found.");
-            return;
-        }
+        if (items.Count >= maxInventorySize) return;
 
-        instance = this;
+        items.Add(itemToAdd);
+        onItemsChanged.Invoke();
     }
 
-    #endregion
-
-    public List<Item> items = new List<Item>();
-
-    // Inspector Fields
-    [SerializeField] private Item testItem; // Testing
-
-    // Private Variables
-    private const int slotAmount = 12;
-
-    // Events
-    public System.Action InventoryChanged;
-
-    private void Start()
+    public void RemoveItem(Item itemToRemove)
     {
-        
+        items.Remove(itemToRemove);
+        onItemsChanged.Invoke();
     }
 
-    private void Update()
+    [ContextMenu("Test Item")]
+    public void AddTestItem()
     {
-        if(Input.GetKeyDown(KeyCode.KeypadPlus))
-        {
-            AddItem(testItem, 1);
-        }
-    }
-
-    public void AddItem(Item itemToAdd, int amountToAdd)
-    {
-        
-    }
-
-    public void RemoveItem(Item itemToRemove, int amountToRemove)
-    {
-        
-    }
-
-    public int GetCurrentAmount(Item itemToCheck)
-    {
-        return 0;
-    }
-
-    public bool CheckIfItemExists(Item itemToCheck)
-    {
-        return false;
+        AddItem(testItemToAdd);
     }
 }

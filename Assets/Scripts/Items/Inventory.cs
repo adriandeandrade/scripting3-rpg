@@ -37,7 +37,10 @@ namespace enjoii.Items
 
             foreach (Item item in startingItems)
             {
-                AddItem(item.GetCopy());
+                if(item != null)
+                {
+                    AddItem(item.GetCopy());
+                }
             }
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using enjoii.Items;
+using enjoii.Stats;
 
 
 namespace enjoii.Characters
@@ -14,13 +15,23 @@ namespace enjoii.Characters
         [Header("Character Configuration")]
         [SerializeField] private int health = 50;
         [SerializeField] private Inventory inventory;
+        [SerializeField] private ItemToolTip itemToolTip;
         [SerializeField] private Image handSlotImage;
+
+        [Header("Panels")]
+        [SerializeField] private DestroyItemSlot destroyItemSlot;
+
+        [Header("Stats")]
+        public CharacterStat strengthStat;
+        public CharacterStat agilityStat;
+        public CharacterStat vitalityStat;
 
         // Private Variables
         private BaseItemSlot handSlot;
 
         // Properties
         public Inventory Inventory => inventory;
+        public int Health { get => health; set => health = value; }
 
         // Components
         private ItemContainer openItemContainer;
@@ -29,7 +40,10 @@ namespace enjoii.Characters
 
         private void OnValidate()
         {
-
+            if(itemToolTip == null)
+            {
+                itemToolTip = FindObjectOfType<ItemToolTip>();
+            }
         }
 
         private void Awake()
@@ -39,8 +53,10 @@ namespace enjoii.Characters
             inventory.OnEndDragEvent += EndDrag;
             inventory.OnDragEvent += Drag;
             inventory.OnDropEvent += Drop;
-            //inventory.OnPointerEnterEvent += ShowToolTip;
-            //inventory.OnPointerExitEvent += HideToolTip;
+
+            destroyItemSlot.OnDropEvent += DestroyItem;
+            inventory.OnPointerEnterEvent += ShowToolTip;
+            inventory.OnPointerExitEvent += HideToolTip;
 
         }
 
@@ -136,7 +152,7 @@ namespace enjoii.Characters
 
         }
 
-        private void DropItemOutsideUI()
+        private void DestroyItem()
         {
             if (handSlot == null) return;
             BaseItemSlot slot = handSlot;
@@ -213,6 +229,22 @@ namespace enjoii.Characters
             otherItemContainer.OnEndDragEvent -= EndDrag;
             otherItemContainer.OnDragEvent -= Drag;
             otherItemContainer.OnDropEvent -= Drop;
+        }
+
+        private void ShowToolTip(BaseItemSlot itemSlot)
+        {
+            if(itemSlot.ItemInSlot != null)
+            {
+                itemToolTip.ShowToolTip(itemSlot.ItemInSlot);
+            }
+        }
+
+        private void HideToolTip(BaseItemSlot itemSlot)
+        {
+            if(itemToolTip.gameObject.activeSelf)
+            {
+                itemToolTip.HideToolTip();
+            }
         }
     }
 }

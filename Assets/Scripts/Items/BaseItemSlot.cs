@@ -59,6 +59,7 @@ namespace enjoii.Items
                 }
             }
         }
+
         public int ItemQuantity
         {
             get

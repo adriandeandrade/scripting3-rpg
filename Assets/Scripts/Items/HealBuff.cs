@@ -12,7 +12,7 @@ namespace enjoii.Items
         public int healAmount;
         public override void ExecuteEffect(UsableItem parentItem, Character character)
         {
-            // TODO: Heal the character.
+            character.Health += 5;
         }
         public override string GetDescription()
         {

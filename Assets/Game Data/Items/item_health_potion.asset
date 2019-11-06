@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: item_health_potion
   m_EditorClassIdentifier: 
   itemName: Health Potion
-  itemDescription: New Item Description
+  itemDescription: When consumed, will yield you 15 health points.
   maxStackSize: 9
   itemIcon: {fileID: -3543485243834422511, guid: e06e22735e67ba242b1f8f9a90f1edff,
     type: 3}
   IsConsumable: 1
-  buffs: []
+  buffs:
+  - {fileID: 11400000, guid: 21d8fac1b1cc3724ca90d7b2d241214a, type: 2}

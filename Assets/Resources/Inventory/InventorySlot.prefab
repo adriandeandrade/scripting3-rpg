@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1203962846797383078}
   - component: {fileID: 1251044011747407134}
   - component: {fileID: 1251044011747407135}
-  - component: {fileID: 5339149958037295357}
+  - component: {fileID: 1578817313517398805}
   m_Layer: 0
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1.5
---- !u!114 &5339149958037295357
+--- !u!114 &1578817313517398805
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,12 +87,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1203962846797383079}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9f5f09f79abbfb4ab30cee17ab8f13b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5046782dfabdb4840a03f2578aa390ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
   itemIconImage: {fileID: 6115302838253104385}
-  itemQuantityText: {fileID: 583161354987968229}
+  quantityText: {fileID: 583161354987968229}
 --- !u!1 &1405664156372762535
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +103,6 @@ GameObject:
   - component: {fileID: 3274018080783021747}
   - component: {fileID: 665100343265385082}
   - component: {fileID: 6115302838253104385}
-  - component: {fileID: 7396706374187778718}
   - component: {fileID: 3830741273183040776}
   m_Layer: 0
   m_Name: ItemIcon
@@ -147,13 +145,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405664156372762535}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -170,19 +168,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7396706374187778718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405664156372762535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed5888e91a510174aa99e1c47ec97fd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventorySlot: {fileID: 5339149958037295357}
 --- !u!225 &3830741273183040776
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -247,7 +232,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1478211806726160155}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -260,7 +245,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 32
+  m_text: 8
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c6f69d8c3b60a4a43bef4f282127c424, type: 2}
   m_sharedMaterial: {fileID: -3061175814301302162, guid: c6f69d8c3b60a4a43bef4f282127c424,
@@ -330,12 +315,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 583161354987968229}
-    characterCount: 2
+    characterCount: 1
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
     linkCount: 0
-    lineCount: 2
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0

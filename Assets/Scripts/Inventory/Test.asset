@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 162a310c8dca5cb4b8c56d86114f8151, type: 3}
-  m_Name: Item_Health_Potion
+  m_Script: {fileID: 11500000, guid: 1fda58fa6b5c8bc48b56cf68eded4b44, type: 3}
+  m_Name: Test
   m_EditorClassIdentifier: 
-  itemName: Health Potion
-  itemDescription: Restores 5 HP
-  maxStackAmount: 1
-  itemIcon: {fileID: -3543485243834422511, guid: e06e22735e67ba242b1f8f9a90f1edff,
+  itemName: New Item Name
+  itemDescription: New Item Description
+  maxStackSize: 10
+  itemIcon: {fileID: -4706920450862874688, guid: e06e22735e67ba242b1f8f9a90f1edff,
     type: 3}
+  useText: New Consumable Use Text

@@ -12,7 +12,7 @@ public class InventoryUI : MonoBehaviour
 
     private void Start()
     {
-        inventory.onItemsChanged += UpdateInventoryUI;
+        //inventory.onItemsChanged += UpdateInventoryUI;
     }
 
     private void Update()
@@ -23,18 +23,18 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void UpdateInventoryUI()
-    {
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if(i < inventory.Items.Count)
-            {
-                slots[i].AddItemToSlot(inventory.Items[i]);
-            }
-            else
-            {
-                slots[i].RemoveItemInSlot();
-            }
-        }
-    }
+    //public void UpdateInventoryUI()
+    //{
+    //    for (int i = 0; i < slots.Length; i++)
+    //    {
+    //        if(i < inventory.Items.Count)
+    //        {
+    //            slots[i].AddItemToSlot(inventory.Items[i]);
+    //        }
+    //        else
+    //        {
+    //            slots[i].RemoveItemInSlot();
+    //        }
+    //    }
+    //}
 }

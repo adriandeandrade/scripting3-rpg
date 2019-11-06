@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "Items/New Item")]
-public class Item : ScriptableObject
+public abstract class Item : ScriptableObject
 {
     [Header("Item Data")]
-    public string itemName = "New Item Name";
-    public string itemDescription = "New Item Description";
-    public int maxStackAmount = 1;
-    public Sprite itemIcon = null;
+    [SerializeField] private string itemName = "New Item Name";
+    [SerializeField] private string itemDescription = "New Item Description";
+    [SerializeField] private int maxStackSize = 1;
+    [SerializeField] private Sprite itemIcon = null;
+    private InventorySlot itemSlot;
+
+    public string ItemName { get => itemName; }
+    public string ItemDescription { get => itemDescription; }
+    public int MaxStackSize { get => maxStackSize; }
+    public Sprite ItemIcon { get => itemIcon; }
+    public InventorySlot ItemSlot { get => itemSlot; set => itemSlot = value; }
 }

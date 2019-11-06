@@ -90,7 +90,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f5f09f79abbfb4ab30cee17ab8f13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
   itemIconImage: {fileID: 6115302838253104385}
+  itemQuantityText: {fileID: 583161354987968229}
 --- !u!1 &1405664156372762535
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,6 +104,8 @@ GameObject:
   - component: {fileID: 3274018080783021747}
   - component: {fileID: 665100343265385082}
   - component: {fileID: 6115302838253104385}
+  - component: {fileID: 7396706374187778718}
+  - component: {fileID: 3830741273183040776}
   m_Layer: 0
   m_Name: ItemIcon
   m_TagString: Untagged
@@ -166,6 +170,31 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7396706374187778718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405664156372762535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed5888e91a510174aa99e1c47ec97fd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventorySlot: {fileID: 5339149958037295357}
+--- !u!225 &3830741273183040776
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405664156372762535}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1478211806726160155
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2907051609622689777
 RectTransform:
   m_ObjectHideFlags: 0
@@ -233,8 +262,9 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 32
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: c6f69d8c3b60a4a43bef4f282127c424, type: 2}
+  m_sharedMaterial: {fileID: -3061175814301302162, guid: c6f69d8c3b60a4a43bef4f282127c424,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -259,8 +289,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 32.5
-  m_fontSizeBase: 32.5
+  m_fontSize: 49.76
+  m_fontSizeBase: 49.76
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

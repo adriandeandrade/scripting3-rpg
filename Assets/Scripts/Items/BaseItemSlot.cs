@@ -117,33 +117,22 @@ namespace enjoii.Items
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (eventData != null && eventData.button == PointerEventData.InputButton.Left)
+            if (eventData != null && eventData.button == PointerEventData.InputButton.Right)
             {
-                if (OnRightClickEvent != null)
-                {
-                    OnRightClickEvent(this);
-                }
+                OnRightClickEvent?.Invoke(this);
             }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
             isMouseOverSlot = true;
-
-            if (OnPointerEnterEvent != null)
-            {
-                OnPointerEnterEvent(this);
-            }
+            OnPointerEnterEvent?.Invoke(this);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             isMouseOverSlot = false;
-
-            if (OnPointerExitEvent != null)
-            {
-                OnPointerExitEvent(this);
-            }
+            OnPointerExitEvent?.Invoke(this);
         }
     }
 }

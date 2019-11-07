@@ -47,10 +47,7 @@ namespace enjoii.Items
                 itemIconImage.color = dragColor;
             }
 
-            if (OnBeginDragEvent != null)
-            {
-                OnBeginDragEvent(this);
-            }
+            OnBeginDragEvent?.Invoke(this);
         }
 
         public void OnEndDrag(PointerEventData eventData)
@@ -62,26 +59,17 @@ namespace enjoii.Items
                 itemIconImage.color = originalColor;
             }
 
-            if (OnEndDragEvent != null)
-            {
-                OnEndDragEvent(this);
-            }
+            OnEndDragEvent?.Invoke(this);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (OnDragEvent != null)
-            {
-                OnDragEvent(this);
-            }
+            OnDragEvent?.Invoke(this);
         }
 
         public void OnDrop(PointerEventData eventData)
         {
-            if (OnDropEvent != null)
-            {
-                OnDropEvent(this);
-            }
+            OnDropEvent?.Invoke(this);
         }
     }
 }

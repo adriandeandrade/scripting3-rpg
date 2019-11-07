@@ -43,10 +43,7 @@ namespace enjoii.Items
 
         private void EventHelper(BaseItemSlot itemSlot, Action<BaseItemSlot> action)
         {
-            if (action != null)
-            {
-                action(itemSlot);
-            }
+            action?.Invoke(itemSlot);
         }
 
         public virtual bool AddItem(Item item)
@@ -142,6 +139,8 @@ namespace enjoii.Items
                 if (ItemSlots[i].ItemInSlot == item)
                 {
                     ItemSlots[i].ItemQuantity--;
+                    Debug.Log($"{item.ItemName} has been removed.");
+
                     return true;
                 }
             }

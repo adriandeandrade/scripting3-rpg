@@ -7,7 +7,7 @@ using enjoii.Stats;
 
 namespace enjoii.Items
 {
-    [CreateAssetMenu(fileName = "New Equippable Item", menuName = "New Equippable Item")]
+    [CreateAssetMenu(fileName = "New Equippable Item", menuName = "Items/New Equippable Item")]
     public class EquippableItem : Item
     {
         // Inspector Fields
@@ -42,42 +42,44 @@ namespace enjoii.Items
 
         public void Equip(Character character)
         {
-            if(strengthBonus != 0)
-            {
-                character.strengthStat.AddModifier(new StatModifier(strengthBonus, Stats.StatModifierType.Flat, this));
-            }
+            Debug.Log("Equipped an item.");
+            //if(strengthBonus != 0)
+            //{
+            //    character.strengthStat.AddModifier(new StatModifier(strengthBonus, StatModifierType.Flat, this));
+            //}
 
-            if (agilityBonus != 0)
-            {
-                character.agilityStat.AddModifier(new StatModifier(agilityBonus, Stats.StatModifierType.Flat, this));
-            }
+            //if (agilityBonus != 0)
+            //{
+            //    character.agilityStat.AddModifier(new StatModifier(agilityBonus, StatModifierType.Flat, this));
+            //}
 
-            if (vitalityBonus != 0)
-            {
-                character.vitalityStat.AddModifier(new StatModifier(vitalityBonus, Stats.StatModifierType.Flat, this));
-            }
+            //if (vitalityBonus != 0)
+            //{
+            //    character.vitalityStat.AddModifier(new StatModifier(vitalityBonus, StatModifierType.Flat, this));
+            //}
 
-            if(strengthPercentBonus != 0)
-            {
-                character.strengthStat.AddModifier(new StatModifier(strengthPercentBonus, Stats.StatModifierType.PercentMultiply, this));
-            }
+            //if(strengthPercentBonus != 0)
+            //{
+            //    character.strengthStat.AddModifier(new StatModifier(strengthPercentBonus, StatModifierType.PercentMultiply, this));
+            //}
 
-            if (agilityPercentBonus != 0)
-            {
-                character.agilityStat.AddModifier(new StatModifier(agilityPercentBonus, Stats.StatModifierType.PercentMultiply, this));
-            }
+            //if (agilityPercentBonus != 0)
+            //{
+            //    character.agilityStat.AddModifier(new StatModifier(agilityPercentBonus, StatModifierType.PercentMultiply, this));
+            //}
 
-            if (vitalityPercentBonus != 0)
-            {
-                character.vitalityStat.AddModifier(new StatModifier(vitalityPercentBonus, Stats.StatModifierType.PercentMultiply, this));
-            }
+            //if (vitalityPercentBonus != 0)
+            //{
+            //    character.vitalityStat.AddModifier(new StatModifier(vitalityPercentBonus, StatModifierType.PercentMultiply, this));
+            //}
         }
 
         public void UnEquip(Character character)
         {
-            character.strengthStat.RemoveAllModifiersFromSource(this);
-            character.agilityStat.RemoveAllModifiersFromSource(this);
-            character.vitalityStat.RemoveAllModifiersFromSource(this);
+            Debug.Log("Un-Equipped an item.");
+            //character.strengthStat.RemoveAllModifiersFromSource(this);
+            //character.agilityStat.RemoveAllModifiersFromSource(this);
+            //character.vitalityStat.RemoveAllModifiersFromSource(this);
         }
 
         public override string GetItemType()

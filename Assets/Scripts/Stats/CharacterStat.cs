@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace enjoii.Stats
 {
+    [Serializable]
     public class CharacterStat
     {
         // Public Variables

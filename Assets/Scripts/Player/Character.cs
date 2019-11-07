@@ -16,6 +16,7 @@ namespace enjoii.Characters
         [SerializeField] private int health = 50;
         [SerializeField] private Inventory inventory;
         [SerializeField] private ItemToolTip itemToolTip;
+        [SerializeField] private EquipmentContainer equipmentPanel;
         [SerializeField] private Image handSlotImage;
 
         [Header("Panels")]
@@ -53,10 +54,18 @@ namespace enjoii.Characters
             inventory.OnEndDragEvent += EndDrag;
             inventory.OnDragEvent += Drag;
             inventory.OnDropEvent += Drop;
-
-            destroyItemSlot.OnDropEvent += DestroyItem;
             inventory.OnPointerEnterEvent += ShowToolTip;
             inventory.OnPointerExitEvent += HideToolTip;
+
+            equipmentPanel.OnRightClickEvent += EquipmentPanelRightClick;
+            equipmentPanel.OnPointerEnterEvent += ShowToolTip;
+            equipmentPanel.OnPointerExitEvent += HideToolTip;
+            equipmentPanel.OnBeginDragEvent += BeginDrag;
+            equipmentPanel.OnEndDragEvent += EndDrag;
+            equipmentPanel.OnDragEvent += Drag;
+            equipmentPanel.OnDropEvent += Drop;
+
+            destroyItemSlot.OnDropEvent += DestroyItem;
 
         }
 
@@ -77,6 +86,14 @@ namespace enjoii.Characters
                 }
             }
 
+        }
+
+        private void EquipmentPanelRightClick(BaseItemSlot itemSlot)
+        {
+            if(itemSlot.ItemInSlot is EquippableItem)
+            {
+                UnEquip((EquippableItem)itemSlot.ItemInSlot);
+            }
         }
 
         private void BeginDrag(BaseItemSlot itemSlot)
@@ -108,10 +125,12 @@ namespace enjoii.Characters
             if (dropItemSlot.CanAddStack(handSlot.ItemInSlot))
             {
                 AddStacks(dropItemSlot);
+                Debug.Log("#1");
             }
             else if (dropItemSlot.CanRecieveItem(handSlot.ItemInSlot) && handSlot.CanRecieveItem(dropItemSlot.ItemInSlot))
             {
                 SwapItems(dropItemSlot);
+                Debug.Log("#2");
             }
         }
 
@@ -155,7 +174,9 @@ namespace enjoii.Characters
         private void DestroyItem()
         {
             if (handSlot == null) return;
+
             BaseItemSlot slot = handSlot;
+
             DestroyItemInSlot(slot);
         }
 
@@ -173,13 +194,33 @@ namespace enjoii.Characters
 
         public void Equip(EquippableItem item)
         {
-            Debug.Log($"Character successfully equipped {item}");
+            if(inventory.RemoveItem(item))
+            {
+                EquippableItem previousItem;
+                if(equipmentPanel.AddItem(item, out previousItem))
+                {
+                    if(previousItem != null)
+                    {
+                        inventory.AddItem(previousItem);
+                        previousItem.UnEquip(this);
+                    }
+
+                    item.Equip(this);
+                }
+                else
+                {
+                    inventory.AddItem(item);
+                }
+            }
         }
 
         public void UnEquip(EquippableItem item)
         {
-            Debug.Log($"Character successfully un-equipped {item}");
-
+            if(inventory.CanAddItem(item) && equipmentPanel.RemoveItem(item))
+            {
+                item.UnEquip(this);
+                inventory.AddItem(item);
+            }
         }
 
         private void TransferToItemContainer(BaseItemSlot itemSlot)

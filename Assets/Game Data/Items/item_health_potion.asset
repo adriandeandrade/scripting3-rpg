@@ -17,6 +17,6 @@ MonoBehaviour:
   maxStackSize: 9
   itemIcon: {fileID: -3543485243834422511, guid: e06e22735e67ba242b1f8f9a90f1edff,
     type: 3}
-  IsConsumable: 1
+  IsConsumable: 0
   buffs:
   - {fileID: 11400000, guid: 21d8fac1b1cc3724ca90d7b2d241214a, type: 2}

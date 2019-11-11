@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 using enjoii.Items;
 using enjoii.Stats;
-
+using System;
 
 namespace enjoii.Characters
 {
@@ -38,6 +38,8 @@ namespace enjoii.Characters
         private ItemContainer openItemContainer;
 
         // Events
+        public event Action<Item> OnItemEquipped;
+
 
         private void OnValidate()
         {
@@ -85,7 +87,6 @@ namespace enjoii.Characters
                     usableItem.Destroy();
                 }
             }
-
         }
 
         private void EquipmentPanelRightClick(BaseItemSlot itemSlot)
@@ -206,6 +207,7 @@ namespace enjoii.Characters
                     }
 
                     item.Equip(this);
+                    OnItemEquipped(item);
                 }
                 else
                 {

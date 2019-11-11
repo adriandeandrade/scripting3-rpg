@@ -6,7 +6,7 @@ using enjoii.Characters;
 
 namespace enjoii.Items
 {
-    [CreateAssetMenu(fileName = "New Usable Item", menuName = " Items/ New Usable Item")]
+    [CreateAssetMenu(fileName = "New Usable Item", menuName = "Items/ New Usable Item")]
     public class UsableItem : Item
     {
         public bool IsConsumable;

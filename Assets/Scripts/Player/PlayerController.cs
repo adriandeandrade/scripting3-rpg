@@ -12,20 +12,31 @@ public class PlayerController : MonoBehaviour
 
     // Private Variables
     private float currentSpeed;
+    private float facingDirection;
+
+    // Facing Direction Context
+    private readonly Vector2 up = new Vector2(0, 1);
+    private readonly Vector2 down = new Vector2(0, -1);
+    private readonly Vector2 left = new Vector2(1, 0);
+    private readonly Vector2 right = new Vector2(-1, 0);
+
+    // Properties
+    public float FacingDirection => facingDirection;
+    public Vector2 MovementInput => input;
+    public Vector2 Velocity => velocity;
 
     // Components
-    private CharacterController2D controller2D;
-    private RaycastHit2D lastControllerColliderHit;
+    private Rigidbody2D rBody2D;
+    private SpriteRenderer spriteRenderer;
+    private Camera cam;
     private Vector2 velocity;
     private Vector2 input;
 
     private void Awake()
     {
-        controller2D = GetComponent<CharacterController2D>();
-        controller2D.onControllerCollidedEvent += OnControllerCollider;
-        controller2D.onTriggerEnterEvent += OnTriggerEnterEvent;
-        controller2D.onTriggerExitEvent += OnTriggerExitEvent;
-        controller2D.onTriggerStayEvent += OnTriggerStayEvent;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        rBody2D = GetComponent<Rigidbody2D>();
+        cam = Camera.main;
     }
 
     private void Start()
@@ -33,47 +44,39 @@ public class PlayerController : MonoBehaviour
         currentSpeed = runSpeed;
     }
 
-    private void OnControllerCollider(RaycastHit2D hit)
-    {
-        
-    }
-
-    private void OnTriggerEnterEvent(Collider2D col)
-    {
-       
-    }
-
-    private void OnTriggerStayEvent(Collider2D col)
-    {
-
-    }
-
-    private void OnTriggerExitEvent(Collider2D col)
-    {
-        
-    }
-
     private void FixedUpdate()
     {
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        if (input.x == 1)
-        {
-            if (transform.localScale.x < 0f)
-            {
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-            }
-        }
-        else if (input.x == -1)
-        {
-            if (transform.localScale.x > 0f)
-            {
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-            }
-        }
+        FlipTowardsMouse();
+        SetFacingDirection(input);
 
-        velocity = Vector2.Lerp(velocity, input * runSpeed, Time.deltaTime * groundDamping);
-        controller2D.move(velocity * Time.deltaTime);
-        velocity = controller2D.velocity;
+        velocity = Vector2.Lerp(velocity, input.normalized * runSpeed, Time.deltaTime * groundDamping);
+        rBody2D.velocity = velocity;
+    }
+
+    private void SetFacingDirection(Vector2 _velocity)
+    {
+        if (_velocity == Vector2.zero) return;
+
+        if (_velocity == down) facingDirection = 0f;
+        if (_velocity == right) facingDirection = 1f;
+        if (_velocity == left) facingDirection = 2f;
+        if (_velocity == up) facingDirection = 3f;
+    }
+
+    private void FlipTowardsMouse()
+    {
+        Vector2 mousePos = Input.mousePosition;
+        Vector2 objectPos = cam.WorldToScreenPoint(transform.position);
+
+        if (mousePos.x < objectPos.x)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (mousePos.x > objectPos.x)
+        {
+            spriteRenderer.flipX = true;
+        }
     }
 }

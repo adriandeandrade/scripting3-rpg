@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef6096b30381b6a458f3b711aa1689c0, type: 3}
-  m_Name: item_sword
+  m_Name: item_gold_sword
   m_EditorClassIdentifier: 
-  itemName: Wooden Sword
-  itemDescription: Just an ol' piece of splinters.
+  itemName: Gold Sword
+  itemDescription: Just a golden sword.
   maxStackSize: 1
-  itemIcon: {fileID: -7842270030707503569, guid: e06e22735e67ba242b1f8f9a90f1edff,
+  itemIcon: {fileID: 9020811144821290928, guid: e06e22735e67ba242b1f8f9a90f1edff,
     type: 3}
   equipmentType: 4
-  strengthBonus: 2
-  agilityBonus: 2
+  strengthBonus: 0
+  agilityBonus: 0
   vitalityBonus: 0
-  strengthPercentBonus: 15
+  strengthPercentBonus: 0
   agilityPercentBonus: 0
   vitalityPercentBonus: 0

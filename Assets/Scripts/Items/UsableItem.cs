@@ -13,7 +13,7 @@ namespace enjoii.Items
 
         public List<UsableItemBuff> buffs;
 
-        public virtual void Use(Character character)
+        public virtual void Use(Player character)
         {
             foreach (UsableItemBuff buff in buffs)
             {

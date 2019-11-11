@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 using enjoii.Characters;
 using enjoii.Stats;
@@ -20,6 +21,8 @@ namespace enjoii.Items
         [SerializeField] private float strengthPercentBonus;
         [SerializeField] private float agilityPercentBonus;
         [SerializeField] private float vitalityPercentBonus;
+        public GameObject projectilePrefab;
+        public Sprite projectileIcon;
 
         // Properties
         public EquipmentTypes EquipmentType => equipmentType;
@@ -40,7 +43,7 @@ namespace enjoii.Items
             Destroy(this);
         }
 
-        public void Equip(Character character)
+        public void Equip(Player character)
         {
             Debug.Log("Equipped an item.");
             //if(strengthBonus != 0)
@@ -74,7 +77,7 @@ namespace enjoii.Items
             //}
         }
 
-        public void UnEquip(Character character)
+        public void UnEquip(Player character)
         {
             Debug.Log("Un-Equipped an item.");
             //character.strengthStat.RemoveAllModifiersFromSource(this);

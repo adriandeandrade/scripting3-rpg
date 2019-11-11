@@ -10,7 +10,7 @@ namespace enjoii.Items
     public class HealBuff : UsableItemBuff
     {
         public int healAmount;
-        public override void ExecuteEffect(UsableItem parentItem, Character character)
+        public override void ExecuteEffect(UsableItem parentItem, Player character)
         {
             character.Health += 5;
         }

@@ -10,30 +10,28 @@ using enjoii.Stats;
 
 namespace enjoii.Characters
 {
-    public class Player : MonoBehaviour
+    public class Player : BaseCharacter
     {
         // Inspector Fields
         [Header("Character Configuration")]
-        [SerializeField] private int health = 50;
         [SerializeField] private Inventory inventory;
         [SerializeField] private ItemToolTip itemToolTip;
-        [SerializeField] private EquipmentContainer equipmentPanel;
         [SerializeField] private Image handSlotImage;
 
         [Header("Panels")]
+        [SerializeField] private EquipmentContainer equipmentPanel;
         [SerializeField] private DestroyItemSlot destroyItemSlot;
 
         [Header("Stats")]
+        [SerializeField] private PlayerStats playerStats;
         public CharacterStat strengthStat;
-        public CharacterStat agilityStat;
-        public CharacterStat vitalityStat;
+        
 
         // Private Variables
         private BaseItemSlot handSlot;
 
         // Properties
         public Inventory Inventory => inventory;
-        public int Health { get => health; set => health = value; }
 
         // Components
         private ItemContainer openItemContainer;
@@ -42,16 +40,20 @@ namespace enjoii.Characters
         public event Action<EquippableItem> OnWeaponEquipped;
         public event Action<EquippableItem> OnWeaponDequipped;
 
-
         private void OnValidate()
         {
             if (itemToolTip == null)
             {
                 itemToolTip = FindObjectOfType<ItemToolTip>();
             }
+
+            if(playerStats == null)
+            {
+                playerStats = GetComponent<PlayerStats>();
+            }
         }
 
-        private void Awake()
+        protected override void Awake()
         {
             inventory.OnRightClickEvent += InventoryRightClick;
             inventory.OnBeginDragEvent += BeginDrag;
@@ -71,6 +73,7 @@ namespace enjoii.Characters
 
             destroyItemSlot.OnDropEvent += DestroyItem;
 
+            base.Awake();
         }
 
         private void InventoryRightClick(BaseItemSlot itemSlot)
@@ -171,11 +174,6 @@ namespace enjoii.Characters
 
             dropItemSlot.ItemInSlot = itemInHand;
             dropItemSlot.ItemQuantity = itemInHandQuantity;
-
-            if (equippableItemInHand.EquipmentType == EquipmentTypes.Weapon1)
-            {
-                OnWeaponEquipped(equippableItemInHand);
-            }
         }
 
         private void DestroyItem()
@@ -183,7 +181,6 @@ namespace enjoii.Characters
             if (handSlot == null) return;
 
             BaseItemSlot slot = handSlot;
-
             DestroyItemInSlot(slot);
         }
 
@@ -217,6 +214,7 @@ namespace enjoii.Characters
                     if(item.EquipmentType == EquipmentTypes.Weapon1)
                     {
                         OnWeaponEquipped(item);
+                        Debug.Log($"New Strength Stat Value: {strengthStat.Value}");
                     }
                 }
                 else
@@ -303,6 +301,12 @@ namespace enjoii.Characters
             {
                 itemToolTip.HideToolTip();
             }
+        }
+
+        public void OnXPAdded(float amount)
+        {
+            playerStats.AddXP(amount);
+            Debug.Log($"{amount} of XP was gained.");
         }
     }
 }

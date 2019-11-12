@@ -10,6 +10,7 @@ public class Arrow : MonoBehaviour
     private Vector2 direction;
     private bool doMovement = false;
     private float speed;
+    private float damage;
 
 
     // Components
@@ -32,9 +33,10 @@ public class Arrow : MonoBehaviour
         }
     }
 
-    public void LaunchProjectile(Vector2 _direction, float _speed, Sprite arrowSprite)
+    public void LaunchProjectile(Vector2 _direction, float _speed, Sprite arrowSprite, float _damage)
     {
         spriteRenderer.sprite = arrowSprite;
+        damage = _damage;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.rotation = Quaternion.LookRotation(Vector3.forward, (Vector3)mousePos - transform.position);
@@ -55,6 +57,9 @@ public class Arrow : MonoBehaviour
 
             if(damageable != null)
             {
+                damageable.OnHit(gameObject);
+                damageable.TakeDamage(damage);
+
                 Vector2 direction = other.transform.position - transform.position;
                 damageable.DoKnockback(direction, 15f);
             }

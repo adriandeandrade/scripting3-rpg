@@ -263,8 +263,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 9
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c6f69d8c3b60a4a43bef4f282127c424, type: 2}
-  m_sharedMaterial: {fileID: -3061175814301302162, guid: c6f69d8c3b60a4a43bef4f282127c424,
+  m_fontAsset: {fileID: 11400000, guid: 5b838e8c26ffdc8408d60fe3621e4213, type: 2}
+  m_sharedMaterial: {fileID: 733764563355870281, guid: 5b838e8c26ffdc8408d60fe3621e4213,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -331,13 +331,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 583161354987968229}
-    characterCount: 1
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0

@@ -17,12 +17,8 @@ MonoBehaviour:
   maxStackSize: 1
   itemIcon: {fileID: 21300000, guid: fd24d58c332dcc14da77a52da30043f4, type: 3}
   equipmentType: 4
-  strengthBonus: 0
-  agilityBonus: 0
-  vitalityBonus: 0
+  strengthBonus: 5
   strengthPercentBonus: 0
-  agilityPercentBonus: 0
-  vitalityPercentBonus: 0
   projectilePrefab: {fileID: 6279292550039662983, guid: e827c1e13a5306c4ba52ae3e3a196fee,
     type: 3}
   projectileIcon: {fileID: 6065581960130789434, guid: e06e22735e67ba242b1f8f9a90f1edff,

@@ -15,23 +15,16 @@ namespace enjoii.Items
         [Header("Equippable Item Configuration")]
         [SerializeField] private EquipmentTypes equipmentType;
         [SerializeField] private int strengthBonus;
-        [SerializeField] private int agilityBonus;
-        [SerializeField] private int vitalityBonus;
         [Space]
         [SerializeField] private float strengthPercentBonus;
-        [SerializeField] private float agilityPercentBonus;
-        [SerializeField] private float vitalityPercentBonus;
+
         public GameObject projectilePrefab;
         public Sprite projectileIcon;
 
         // Properties
         public EquipmentTypes EquipmentType => equipmentType;
         public int StrengthBonus => strengthBonus;
-        public int AgilityBonus => agilityBonus;
-        public int VitalityBonus => vitalityBonus;
         public float StrengthPercentBonus => strengthPercentBonus;
-        public float AgilityPercentBonus => agilityPercentBonus;
-        public float VitalityPercentBonus => vitalityPercentBonus;
 
         public override Item GetCopy()
         {
@@ -45,44 +38,23 @@ namespace enjoii.Items
 
         public void Equip(Player character)
         {
-            Debug.Log("Equipped an item.");
-            //if(strengthBonus != 0)
-            //{
-            //    character.strengthStat.AddModifier(new StatModifier(strengthBonus, StatModifierType.Flat, this));
-            //}
+            if (strengthBonus != 0)
+            {
+                character.strengthStat.AddModifier(new StatModifier(strengthBonus, StatModifierType.Flat, this));
+                Debug.Log(strengthBonus);
+            }
 
-            //if (agilityBonus != 0)
-            //{
-            //    character.agilityStat.AddModifier(new StatModifier(agilityBonus, StatModifierType.Flat, this));
-            //}
+            if (strengthPercentBonus != 0)
+            {
+                character.strengthStat.AddModifier(new StatModifier(strengthPercentBonus, StatModifierType.PercentMultiply, this));
+            }
 
-            //if (vitalityBonus != 0)
-            //{
-            //    character.vitalityStat.AddModifier(new StatModifier(vitalityBonus, StatModifierType.Flat, this));
-            //}
-
-            //if(strengthPercentBonus != 0)
-            //{
-            //    character.strengthStat.AddModifier(new StatModifier(strengthPercentBonus, StatModifierType.PercentMultiply, this));
-            //}
-
-            //if (agilityPercentBonus != 0)
-            //{
-            //    character.agilityStat.AddModifier(new StatModifier(agilityPercentBonus, StatModifierType.PercentMultiply, this));
-            //}
-
-            //if (vitalityPercentBonus != 0)
-            //{
-            //    character.vitalityStat.AddModifier(new StatModifier(vitalityPercentBonus, StatModifierType.PercentMultiply, this));
-            //}
         }
 
         public void UnEquip(Player character)
         {
             Debug.Log("Un-Equipped an item.");
-            //character.strengthStat.RemoveAllModifiersFromSource(this);
-            //character.agilityStat.RemoveAllModifiersFromSource(this);
-            //character.vitalityStat.RemoveAllModifiersFromSource(this);
+            character.strengthStat.RemoveAllModifiersFromSource(this);
         }
 
         public override string GetItemType()
@@ -93,13 +65,9 @@ namespace enjoii.Items
         public override string GetDescription()
         {
             sb.Length = 0;
-            AddStat(strengthBonus, "Strength");
-            AddStat(agilityBonus, "Agility");
-            AddStat(vitalityBonus, "Vitality");
 
+            AddStat(strengthBonus, "Strength");
             AddStat(strengthPercentBonus, "Strength", isPercent: true);
-            AddStat(agilityPercentBonus, "Agility", isPercent: true);
-            AddStat(vitalityPercentBonus, "Vitality", isPercent: true);
 
             return sb.ToString();
         }

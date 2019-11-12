@@ -26,6 +26,7 @@ public class Bow : MonoBehaviour
     // Private Variables
     private BowState currentBowState;
     private EquippableItem bowData; // Used to get the prefab for the arrow
+
     private bool enable = false;
 
     // Components
@@ -48,8 +49,6 @@ public class Bow : MonoBehaviour
         enable = false;
         bowAnimation.DisableBowImage();
         arrowImage.sprite = null;
-
-        ppProfile = ppVolume.profile;
     }
 
     private void Update()
@@ -100,8 +99,6 @@ public class Bow : MonoBehaviour
                     SetState(BowState.IDLE);
                 }
 
-                UpdatePostProcessEffect(25f);
-
                 break;
 
             case BowState.READY:
@@ -116,17 +113,6 @@ public class Bow : MonoBehaviour
         }
     }
 
-    [SerializeField] private PostProcessVolume ppVolume;
-    private PostProcessProfile ppProfile;
-
-    private void UpdatePostProcessEffect(float value)
-    {
-        LensDistortion lensEffect = null;
-        ppProfile.TryGetSettings<LensDistortion>(out lensEffect);
-
-        lensEffect.intensity.Override(value);
-    }
-
     private void ShootArrow()
     {
         Arrow newArrow = Instantiate(bowData.projectilePrefab, transform.position, Quaternion.identity).GetComponent<Arrow>();
@@ -136,7 +122,7 @@ public class Bow : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = (mousePos - (Vector2)transform.position).normalized;
 
-        newArrow.LaunchProjectile(direction, 25f, bowData.projectileIcon);
+        newArrow.LaunchProjectile(direction, 25f, bowData.projectileIcon, player.strengthStat.Value);
         arrowImage.sprite = null;
     }
 
@@ -164,6 +150,5 @@ public class Bow : MonoBehaviour
     private void OnBowReset()
     {
         Debug.Log("Bow has been shot and has reset itself.");
-        UpdatePostProcessEffect(0f);
     }
 }

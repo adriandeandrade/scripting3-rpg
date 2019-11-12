@@ -69,7 +69,7 @@ namespace enjoii.Stats
         {
             bool didRemove = false;
 
-            for (int i = statModifiers.Count - 1; i >= 0; i++)
+            for (int i = statModifiers.Count - 1; i >= 0; i--)
             {
                 if(statModifiers[i].Source == source)
                 {

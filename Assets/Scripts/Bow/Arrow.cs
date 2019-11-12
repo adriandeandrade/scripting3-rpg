@@ -6,18 +6,22 @@ public class Arrow : MonoBehaviour
 {
     // Inspector Fields
 
-
     // Private Variables
-    private Rigidbody2D rBody;
-    private bool doMovement = false;
     private Vector2 direction;
+    private bool doMovement = false;
     private float speed;
+
+
+    // Components
+    private Rigidbody2D rBody;
     private Collider2D col;
+    private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
         rBody = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -28,8 +32,10 @@ public class Arrow : MonoBehaviour
         }
     }
 
-    public void LaunchProjectile(Vector2 _direction, float _speed)
+    public void LaunchProjectile(Vector2 _direction, float _speed, Sprite arrowSprite)
     {
+        spriteRenderer.sprite = arrowSprite;
+
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.rotation = Quaternion.LookRotation(Vector3.forward, (Vector3)mousePos - transform.position);
 

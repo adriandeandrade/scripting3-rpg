@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AimingAnimation : MonoBehaviour
+public class BowAnimation : MonoBehaviour
 {
     // Inspector Fields
     [SerializeField] private GameObject arrowImage;
@@ -10,6 +10,7 @@ public class AimingAnimation : MonoBehaviour
 
     // Private Variables
     private float aimAngle;
+    private bool enable = false;
 
     // Components
     private Camera cam;
@@ -21,10 +22,11 @@ public class AimingAnimation : MonoBehaviour
 
     private void Update()
     {
+        if (!enable) return;
+
         DrawAimingImage();
     }
-
-    public void DrawAimingImage()
+    private void DrawAimingImage()
     {
         Vector2 arrowPos = cam.WorldToScreenPoint(startPoint.position);
         arrowPos = (Vector2)Input.mousePosition - arrowPos;
@@ -34,5 +36,17 @@ public class AimingAnimation : MonoBehaviour
         arrowPos = Quaternion.AngleAxis(aimAngle, Vector3.forward) * (Vector2.right * 1.2f);
         arrowImage.transform.position = (Vector2)startPoint.position + arrowPos;
         arrowImage.transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.forward);
+    }
+
+    public void EnableBowImage()
+    {
+        enable = true;
+        arrowImage.SetActive(true);
+    }
+
+    public void DisableBowImage()
+    {
+        enable = false;
+        arrowImage.SetActive(false);
     }
 }

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef6096b30381b6a458f3b711aa1689c0, type: 3}
-  m_Name: item_gold_sword
+  m_Name: item_better_bow
   m_EditorClassIdentifier: 
-  itemName: Gold Sword
-  itemDescription: Just a golden sword.
+  itemName: Better Bow
+  itemDescription: Its the better bow
   maxStackSize: 1
-  itemIcon: {fileID: 9020811144821290928, guid: e06e22735e67ba242b1f8f9a90f1edff,
+  itemIcon: {fileID: 4966034641764282685, guid: e06e22735e67ba242b1f8f9a90f1edff,
     type: 3}
   equipmentType: 4
   strengthBonus: 0
@@ -24,3 +24,7 @@ MonoBehaviour:
   strengthPercentBonus: 0
   agilityPercentBonus: 0
   vitalityPercentBonus: 0
+  projectilePrefab: {fileID: 6279292550039662983, guid: e827c1e13a5306c4ba52ae3e3a196fee,
+    type: 3}
+  projectileIcon: {fileID: -1577539987519313473, guid: e06e22735e67ba242b1f8f9a90f1edff,
+    type: 3}

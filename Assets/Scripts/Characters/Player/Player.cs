@@ -39,7 +39,8 @@ namespace enjoii.Characters
         private ItemContainer openItemContainer;
 
         // Events
-        public event Action<Item> OnItemEquipped;
+        public event Action<EquippableItem> OnWeaponEquipped;
+        public event Action<EquippableItem> OnWeaponDequipped;
 
 
         private void OnValidate()
@@ -171,6 +172,10 @@ namespace enjoii.Characters
             dropItemSlot.ItemInSlot = itemInHand;
             dropItemSlot.ItemQuantity = itemInHandQuantity;
 
+            if (equippableItemInHand.EquipmentType == EquipmentTypes.Weapon1)
+            {
+                OnWeaponEquipped(equippableItemInHand);
+            }
         }
 
         private void DestroyItem()
@@ -208,7 +213,11 @@ namespace enjoii.Characters
                     }
 
                     item.Equip(this);
-                    OnItemEquipped(item);
+
+                    if(item.EquipmentType == EquipmentTypes.Weapon1)
+                    {
+                        OnWeaponEquipped(item);
+                    }
                 }
                 else
                 {
@@ -223,6 +232,11 @@ namespace enjoii.Characters
             {
                 item.UnEquip(this);
                 inventory.AddItem(item);
+
+                if (item.EquipmentType == EquipmentTypes.Weapon1)
+                {
+                    OnWeaponDequipped(item);
+                }
             }
         }
 

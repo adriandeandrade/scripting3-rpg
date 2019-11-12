@@ -9,11 +9,14 @@ namespace enjoii.Items
     {
         // Inspector Fields
         [SerializeField] private Transform itemsParent;
+        [SerializeField] private Transform inventoryParent;
+        [SerializeField] private Transform originalParent;
         [SerializeField] private KeyCode openKey = KeyCode.F;
 
         // Private Variables
         private bool isOpen;
         private bool isInRange;
+        
 
         protected override void OnValidate()
         {
@@ -24,20 +27,34 @@ namespace enjoii.Items
         protected override void Awake()
         {
             base.Awake();
-            itemsParent.gameObject.SetActive(false);
+            ToggleChestUI(false);
         }
         private void Update()
         {
             if (isInRange && Input.GetKeyDown(openKey))
             {
                 isOpen = !isOpen;
-                itemsParent.gameObject.SetActive(isOpen);
+                ToggleChestUI(isOpen);
 
                 if (isOpen)
                     GameManager.Instance.PlayerRef.OpenItemContainer(this);
                 else
                     GameManager.Instance.PlayerRef.CloseItemContainer(this);
             }
+        }
+
+        public void ToggleChestUI(bool state)
+        {
+            if(state == true)
+            {
+                itemsParent.parent = inventoryParent;
+            }
+            else if(state == false)
+            {
+                itemsParent.parent = originalParent;
+            }
+
+            itemsParent.gameObject.SetActive(state);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -59,7 +76,7 @@ namespace enjoii.Items
                 if (!isInRange && isOpen)
                 {
                     isOpen = false;
-                    itemsParent.gameObject.SetActive(false);
+                    ToggleChestUI(state);
                     GameManager.Instance.PlayerRef.CloseItemContainer(this);
                 }
             }

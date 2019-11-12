@@ -15,6 +15,7 @@ namespace enjoii.Characters
         // Inspector Fields
         [Header("Character Configuration")]
         [SerializeField] private Inventory inventory;
+        [SerializeField] private InventoryInput inventoryInput;
         [SerializeField] private ItemToolTip itemToolTip;
         [SerializeField] private Image handSlotImage;
 
@@ -32,6 +33,7 @@ namespace enjoii.Characters
 
         // Properties
         public Inventory Inventory => inventory;
+        public ItemContainer ItemContainerOpen => openItemContainer;
 
         // Components
         private ItemContainer openItemContainer;
@@ -50,6 +52,11 @@ namespace enjoii.Characters
             if(playerStats == null)
             {
                 playerStats = GetComponent<PlayerStats>();
+            }
+
+            if(inventoryInput == null)
+            {
+                inventoryInput = GetComponent<InventoryInput>();
             }
         }
 
@@ -127,6 +134,12 @@ namespace enjoii.Characters
         private void Drop(BaseItemSlot dropItemSlot)
         {
             if (handSlot == null) return;
+
+            if (dropItemSlot.ItemInSlot is EquippableItem)
+            {
+                Equip((EquippableItem)dropItemSlot.ItemInSlot);
+                return;
+            }
 
             if (dropItemSlot.CanAddStack(handSlot.ItemInSlot))
             {
@@ -262,6 +275,8 @@ namespace enjoii.Characters
 
         public void OpenItemContainer(ItemContainer otherItemContainer)
         {
+            inventoryInput.ToggleInventoryUI();
+
             openItemContainer = otherItemContainer;
             inventory.OnRightClickEvent -= InventoryRightClick;
             inventory.OnRightClickEvent += TransferToItemContainer;
@@ -277,6 +292,7 @@ namespace enjoii.Characters
         public void CloseItemContainer(ItemContainer otherItemContainer)
         {
             openItemContainer = null;
+            inventoryInput.ToggleInventoryUI();
 
             inventory.OnRightClickEvent += InventoryRightClick;
             inventory.OnRightClickEvent -= TransferToItemContainer;

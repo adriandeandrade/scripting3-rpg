@@ -12,20 +12,28 @@ public enum BowState
     READY
 }
 
-public class Bow : MonoBehaviour
+[RequireComponent(typeof(BowEvents))]
+public class Bow : MonoBehaviour, IWeapon
 {
     // Inspector Fields
     [Header("Bow Configuration")]
     [SerializeField] private BowEvents bowEvents;
-    [SerializeField] private SpriteRenderer arrowImage;
+    [SerializeField] private EquippableItem bowitem;
     [SerializeField] private Transform arrowHolder;
-    [SerializeField] private Animator bowAnimator;
-    [SerializeField] private BowAnimation bowAnimation;
     [SerializeField] private KeyCode drawBowKey = KeyCode.Space;
 
+    [Header("Bow Graphics")]
+    [SerializeField] private SpriteRenderer arrowGhostImage;
+    [SerializeField] private GameObject bowImage;
+    [SerializeField] private Transform startPoint;
+
     // Private Variables
+    private float aimAngle;
     private BowState currentBowState;
-    private EquippableItem bowData; // Used to get the prefab for the arrow
+     // Used to get the prefab for the arrow
+
+    // Components
+    private Animator bowAnimator;
 
     private bool enable = false;
 
@@ -33,22 +41,23 @@ public class Bow : MonoBehaviour
     private Camera cam;
     private Player player;
 
+    public int CurrentDamage { get; set; }
+    public List<BaseStat> WeaponStats { get; set; }
+    public EquippableItem EquippableItemData { get => bowitem; }
+
     private void Awake()
     {
-        player = GetComponent<Player>();
-        bowAnimation = GetComponent<BowAnimation>();
+        player = GetComponentInParent<Player>();
+        bowAnimator = GetComponent<Animator>();
         cam = Camera.main;
 
         bowEvents.OnBowDraw += OnBowFinishedDraw;
         bowEvents.OnBowReady += OnBowReset;
-        player.OnWeaponEquipped += OnBowEquipped;
-        player.OnWeaponDequipped += OnBowUnequipped;
     }
     private void Start()
     {
-        enable = false;
-        bowAnimation.DisableBowImage();
-        arrowImage.sprite = null;
+        startPoint = transform.parent;
+        enable = true;
     }
 
     private void Update()
@@ -56,6 +65,15 @@ public class Bow : MonoBehaviour
         if (!enable) return;
 
         UpdateState();
+        DrawAimingImage();
+    }
+
+    public void InitializeBow(Item item)
+    {
+        bowitem = item as EquippableItem;
+        arrowGhostImage.sprite = bowitem.projectileIcon;
+        enable = true;
+        EnableBowImage();
     }
 
     private void SetState(BowState newState)
@@ -86,7 +104,7 @@ public class Bow : MonoBehaviour
             case BowState.IDLE:
                 if (Input.GetKeyDown(drawBowKey))
                 {
-                    arrowImage.sprite = bowData.projectileIcon;
+                    arrowGhostImage.sprite = bowitem.projectileIcon;
                     SetState(BowState.DRAWING);
                 }
 
@@ -115,31 +133,49 @@ public class Bow : MonoBehaviour
 
     private void ShootArrow()
     {
-        Arrow newArrow = Instantiate(bowData.projectilePrefab, transform.position, Quaternion.identity).GetComponent<Arrow>();
+        Arrow newArrow = Instantiate(bowitem.projectilePrefab, transform.position, Quaternion.identity).GetComponent<Arrow>();
         newArrow.transform.parent = null;
         newArrow.transform.localScale = Vector3.one;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = (mousePos - (Vector2)transform.position).normalized;
 
-        newArrow.LaunchProjectile(direction, 25f, bowData.projectileIcon, player.strengthStat.Value);
-        arrowImage.sprite = null;
+        newArrow.LaunchProjectile(direction, 25f, bowitem.projectileIcon, 1);
+        arrowGhostImage.sprite = null;
     }
 
     private void OnBowEquipped(EquippableItem item)
     {
-        bowData = item;
-        arrowImage.sprite = bowData.projectileIcon;
+        bowitem = item;
+        arrowGhostImage.sprite = bowitem.projectileIcon;
         enable = true;
-        bowAnimation.EnableBowImage();
+        EnableBowImage();
     }
 
-    private void OnBowUnequipped(EquippableItem item)
+
+    private void DrawAimingImage()
     {
-        bowData = null;
+        Vector2 arrowPos = cam.WorldToScreenPoint(startPoint.position);
+        arrowPos = (Vector2)Input.mousePosition - arrowPos;
+
+        aimAngle = Mathf.Atan2(arrowPos.y, arrowPos.x) * Mathf.Rad2Deg;
+
+        arrowPos = Quaternion.AngleAxis(aimAngle, Vector3.forward) * (Vector2.right * 1.2f);
+
+        bowImage.transform.position = (Vector2)startPoint.position + arrowPos;
+        bowImage.transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.forward);
+    }
+
+    public void EnableBowImage()
+    {
+        enable = true;
+        bowImage.SetActive(true);
+    }
+
+    public void DisableBowImage()
+    {
         enable = false;
-        arrowImage.sprite = null;
-        bowAnimation.DisableBowImage();
+        bowImage.SetActive(false);
     }
 
     private void OnBowFinishedDraw()
@@ -150,5 +186,15 @@ public class Bow : MonoBehaviour
     private void OnBowReset()
     {
         Debug.Log("Bow has been shot and has reset itself.");
+    }
+
+    public void PerformAttack(int damage)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void PerformSpecialAttack()
+    {
+        throw new System.NotImplementedException();
     }
 }

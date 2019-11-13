@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace enjoii.Characters
 {
@@ -13,49 +14,40 @@ namespace enjoii.Characters
     {
         // Inspector Fields
         [Header("Simple Enemy Configuration")]
-        [SerializeField] private float moveSpeed;
+        [SerializeField] private float dashSpeed;
         [SerializeField] private float dashCooldown;
-        [SerializeField] private float dashTime = 2f;
+        [SerializeField] private float dashTime = 2f; // How long the dash will last
         [SerializeField] private float maxDashDistance;
         [SerializeField] private float stunDuration;
+        [SerializeField] private Color stunnedColor;
 
         // Private Variables
         private EnemyStates currentState;
+
         private float currentDashTime;
         private float currentDashCooldownTime;
         private float currentStunTime;
-        private GameObject target;
+
         private Vector2 dashDestination;
         private Vector2 dashDirection;
+
+        private Color originalColor;
         private Animator animator;
-
-        // Properties
-        private GameObject Target
-        {
-            get
-            {
-                if (target == null) target = FindObjectOfType<Player>().gameObject;
-
-                if (target == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    return target;
-                }
-            }
-        }
+        private SpriteRenderer spriteRenderer;
 
         protected override void Awake()
         {
             base.Awake();
             animator = GetComponent<Animator>();
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
 
         protected override void Start()
         {
             base.Start();
+            OnTargetLost += OnLostTarget;
+
+            originalColor = spriteRenderer.color;
 
             target = null;
             currentDashTime = 0;
@@ -67,6 +59,11 @@ namespace enjoii.Characters
             UpdateState();
         }
 
+        private void OnLostTarget()
+        {
+            SetState(EnemyStates.IDLE);
+        }
+
         private void SetState(EnemyStates newState)
         {
             switch (newState)
@@ -74,6 +71,7 @@ namespace enjoii.Characters
                 case EnemyStates.IDLE:
                     currentState = EnemyStates.IDLE;
                     currentDashTime = dashTime;
+                    spriteRenderer.color = originalColor;
                     break;
 
                 case EnemyStates.CHARGING:
@@ -92,6 +90,7 @@ namespace enjoii.Characters
                 case EnemyStates.STUNNED:
                     currentState = EnemyStates.STUNNED;
                     currentStunTime = stunDuration;
+                    spriteRenderer.color = stunnedColor;
                     break;
             }
         }
@@ -113,7 +112,7 @@ namespace enjoii.Characters
 
                 case EnemyStates.DASHING:
 
-                    rBody.velocity = dashDirection * moveSpeed;
+                    rBody.velocity = dashDirection * dashSpeed;
 
                     if (currentDashTime > 0)
                     {
@@ -137,11 +136,6 @@ namespace enjoii.Characters
                     SetState(EnemyStates.IDLE);
                     break;
             }
-        }
-
-        private float GetDistanceToTarget()
-        {
-            return Vector2.Distance(Target.transform.position, transform.position);
         }
 
         // Called by animation event
@@ -185,5 +179,3 @@ namespace enjoii.Characters
         }
     }
 }
-
-

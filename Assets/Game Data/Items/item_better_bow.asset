@@ -17,9 +17,12 @@ MonoBehaviour:
   maxStackSize: 1
   itemIcon: {fileID: 4966034641764282685, guid: e06e22735e67ba242b1f8f9a90f1edff,
     type: 3}
+  spawnablePrefab: {fileID: 0}
   equipmentType: 4
-  strengthBonus: 10
-  strengthPercentBonus: 0
+  weaponType: 2
+  baseStats:
+  - statType: 0
+    statModifiers: []
   projectilePrefab: {fileID: 6279292550039662983, guid: e827c1e13a5306c4ba52ae3e3a196fee,
     type: 3}
   projectileIcon: {fileID: -1577539987519313473, guid: e06e22735e67ba242b1f8f9a90f1edff,

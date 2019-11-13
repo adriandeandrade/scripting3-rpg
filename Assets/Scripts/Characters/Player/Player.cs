@@ -14,34 +14,17 @@ namespace enjoii.Characters
     {
         // Inspector Fields
         [Header("Character Configuration")]
-        [SerializeField] private Inventory inventory;
-        [SerializeField] private InventoryInput inventoryInput;
-        [SerializeField] private ItemToolTip itemToolTip;
-        [SerializeField] private Image handSlotImage;
-
-        [Header("Panels")]
-        [SerializeField] private EquipmentContainer equipmentPanel;
-        [SerializeField] private DestroyItemSlot destroyItemSlot;
+        [SerializeField] private NotificationManager notificationManager;
+        [SerializeField] private WeaponController weaponController;
+        [SerializeField] private Transform weaponSlot;
+        [SerializeField] private GameObject bowPrefab;
 
         [Header("Stats")]
         [SerializeField] private PlayerStats playerStats;
-        public CharacterStat strengthStat;
-        
-
-        // Private Variables
-        private BaseItemSlot handSlot;
+        [SerializeField] private CharacterStats characterStats;
 
         // Properties
-        public Inventory Inventory => inventory;
-        public EquipmentContainer EquipmentContainer => equipmentPanel;
-        public ItemContainer ItemContainerOpen => openItemContainer;
-
-        // Components
-        private ItemContainer openItemContainer;
-
-        // Events
-        public event Action<EquippableItem> OnWeaponEquipped;
-        public event Action<EquippableItem> OnWeaponDequipped;
+        public CharacterStats CharacterStats => characterStats;
 
         private void OnValidate()
         {
@@ -50,18 +33,59 @@ namespace enjoii.Characters
                 itemToolTip = FindObjectOfType<ItemToolTip>();
             }
 
-            if(playerStats == null)
+            if (playerStats == null)
             {
                 playerStats = GetComponent<PlayerStats>();
             }
 
-            if(inventoryInput == null)
+            if (inventoryInput == null)
             {
                 inventoryInput = GetComponent<InventoryInput>();
+            }
+
+            if(weaponController == null)
+            {
+                weaponController = GetComponent<WeaponController>();
             }
         }
 
         protected override void Awake()
+        {
+            SubscribeEvents();
+            characterStats = new CharacterStats(5, 5);
+            base.Awake();
+        }
+
+        #region Inventory Variables
+        [Header("Player Inventory Configuration")]
+        [SerializeField] private Inventory inventory;
+        [SerializeField] private InventoryInput inventoryInput;
+
+        [SerializeField] private ItemToolTip itemToolTip;
+        [SerializeField] private Image handSlotImage;
+
+        [Header("Panels")]
+        [SerializeField] private EquipmentPanel equipmentPanel;
+        [SerializeField] private DestroyItemSlot destroyItemSlot;
+
+        // Private Variables
+        private BaseItemSlot handSlot;
+
+        // Properties
+        public Inventory Inventory => inventory;
+        public EquipmentPanel EquipmentContainer => equipmentPanel;
+        public ItemContainer ItemContainerOpen => openItemContainer;
+
+        // Components
+        private ItemContainer openItemContainer;
+
+        // Events
+        public event Action<EquippableItem> OnWeaponEquipped;
+        public event Action OnWeaponDequipped;
+        #endregion
+
+        #region Inventory Functions
+        private void SubscribeEvents()
         {
             inventory.OnRightClickEvent += InventoryRightClick;
             inventory.OnBeginDragEvent += BeginDrag;
@@ -80,14 +104,13 @@ namespace enjoii.Characters
             equipmentPanel.OnDropEvent += Drop;
 
             destroyItemSlot.OnDropEvent += DestroyItem;
-
-            base.Awake();
         }
 
         private void InventoryRightClick(BaseItemSlot itemSlot)
         {
             if (itemSlot.ItemInSlot is EquippableItem)
             {
+                EquippableItem item = itemSlot.ItemInSlot as EquippableItem;
                 Equip((EquippableItem)itemSlot.ItemInSlot);
             }
             else if (itemSlot.ItemInSlot is UsableItem)
@@ -106,6 +129,7 @@ namespace enjoii.Characters
         {
             if (itemSlot.ItemInSlot is EquippableItem)
             {
+                EquippableItem item = itemSlot.ItemInSlot as EquippableItem;
                 UnEquip((EquippableItem)itemSlot.ItemInSlot);
             }
         }
@@ -145,7 +169,6 @@ namespace enjoii.Characters
             if (dropItemSlot.CanAddStack(handSlot.ItemInSlot))
             {
                 AddStacks(dropItemSlot);
-                Debug.Log("#1");
             }
             else if (dropItemSlot.CanRecieveItem(handSlot.ItemInSlot) && handSlot.CanRecieveItem(dropItemSlot.ItemInSlot))
             {
@@ -167,16 +190,28 @@ namespace enjoii.Characters
             EquippableItem equippableItemInHand = handSlot.ItemInSlot as EquippableItem;
             EquippableItem equippableItemInDropSlot = dropItemSlot.ItemInSlot as EquippableItem;
 
+            //if (dropItemSlot is EquipmentSlot)
+            //{
+            //    if (equippableItemInHand != null) equippableItemInHand.Equip(this);
+            //    if (equippableItemInDropSlot != null) equippableItemInDropSlot.UnEquip(this);
+            //}
+
+            //if (handSlot is EquipmentSlot)
+            //{
+            //    if (equippableItemInHand != null) equippableItemInHand.UnEquip(this);
+            //    if (equippableItemInDropSlot != null) equippableItemInDropSlot.Equip(this);
+            //}
+
             if (dropItemSlot is EquipmentSlot)
             {
-                if (equippableItemInHand != null) equippableItemInHand.Equip(this);
-                if (equippableItemInDropSlot != null) equippableItemInDropSlot.UnEquip(this);
+                if (equippableItemInHand != null) Equip(equippableItemInHand);
+                if (equippableItemInDropSlot != null) UnEquip(equippableItemInDropSlot);
             }
 
             if (handSlot is EquipmentSlot)
             {
-                if (equippableItemInHand != null) equippableItemInHand.UnEquip(this);
-                if (equippableItemInDropSlot != null) equippableItemInDropSlot.Equip(this);
+                if (equippableItemInHand != null) UnEquip(equippableItemInHand);
+                if (equippableItemInDropSlot != null) Equip(equippableItemInDropSlot);
             }
 
             Item itemInHand = handSlot.ItemInSlot;
@@ -214,20 +249,18 @@ namespace enjoii.Characters
             if (inventory.RemoveItem(item))
             {
                 EquippableItem previousItem;
-                if (equipmentPanel.AddItem(item, out previousItem))
+                if (equipmentPanel.EquipItem(item, out previousItem))
                 {
-                    if (previousItem != null)
+                    if (previousItem != null) // Check to see if we already have something equipped.
                     {
-                        inventory.AddItem(previousItem);
-                        previousItem.UnEquip(this);
+                        //inventory.AddItem(previousItem);
+                        UnEquip(previousItem);
+                        //previousItem.UnEquip(this);
+                        
                     }
 
-                    item.Equip(this);
-
-                    if(item.EquipmentType == EquipmentTypes.Weapon1)
-                    {
-                        OnWeaponEquipped(item);
-                    }
+                    //item.Equip(this);
+                    OnWeaponEquipped(item);
                 }
                 else
                 {
@@ -238,15 +271,11 @@ namespace enjoii.Characters
 
         public void UnEquip(EquippableItem item)
         {
-            if (inventory.CanAddItem(item) && equipmentPanel.RemoveItem(item))
+            if (inventory.CanAddItem(item) && equipmentPanel.UnEquipItem(item))
             {
-                item.UnEquip(this);
+                //item.UnEquip(this);
                 inventory.AddItem(item);
-
-                if (item.EquipmentType == EquipmentTypes.Weapon1)
-                {
-                    OnWeaponDequipped(item);
-                }
+                OnWeaponDequipped();
             }
         }
 
@@ -275,7 +304,7 @@ namespace enjoii.Characters
         public void OpenItemContainer(ItemContainer otherItemContainer)
         {
             openItemContainer = otherItemContainer;
-            inventoryInput.ToggleInventoryUI();
+            inventoryInput.EnableInventoryUI();
 
             inventory.OnRightClickEvent -= InventoryRightClick;
             inventory.OnRightClickEvent += TransferToItemContainer;
@@ -290,7 +319,7 @@ namespace enjoii.Characters
         public void CloseItemContainer(ItemContainer otherItemContainer)
         {
             openItemContainer = null;
-            inventoryInput.ToggleInventoryUI();
+            inventoryInput.DisableInventoryUI();
 
             inventory.OnRightClickEvent += InventoryRightClick;
             inventory.OnRightClickEvent -= TransferToItemContainer;
@@ -316,11 +345,27 @@ namespace enjoii.Characters
                 itemToolTip.HideToolTip();
             }
         }
+        #endregion
 
         public void OnXPAdded(float amount)
         {
             playerStats.AddXP(amount);
             Debug.Log($"{amount} of XP was gained.");
+        }
+
+        public bool PickupItem(Item item)
+        {
+            Item itemCopy = item.GetCopy();
+            if (inventory.AddItem(itemCopy))
+            {
+                notificationManager.SpawnNotification(item);
+                return true;
+            }
+            else
+            {
+                itemCopy.Destroy();
+                return false;
+            }
         }
     }
 }

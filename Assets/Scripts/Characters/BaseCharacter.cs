@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace enjoii.Characters
 {
@@ -10,8 +11,12 @@ namespace enjoii.Characters
     {
         // Inspector Fields
         [Header("Base Character Configuration")]
+        [SerializeField] private string characterName;
         [SerializeField] protected float maxHealth = 100;
+
+        [Header("Character UI Configuration")]
         [SerializeField] private Image healthBar;
+        [SerializeField] private TextMeshProUGUI characterNameText;
 
         // Private Variables
         protected float currentHealth;
@@ -21,12 +26,18 @@ namespace enjoii.Characters
 
         // Properties
         public float CurrentHealth => currentHealth;
+        public string CharacterName { get => characterName; set => characterName = value; }
 
         protected virtual void Awake()
         {
             if(rBody == null)
             {
                 rBody = GetComponent<Rigidbody2D>();
+            }
+
+            if(characterNameText != null)
+            {
+                characterNameText.SetText(characterName);
             }
         }
 
@@ -53,12 +64,18 @@ namespace enjoii.Characters
         {
             float newHealth = currentHealth + amount;
 
-            if(newHealth > maxHealth)
+            if (newHealth > maxHealth)
             {
                 newHealth = Mathf.Clamp(newHealth, 0, maxHealth);
             }
 
             RecalculateHealth(newHealth);
+        }
+
+        public virtual void IncreaseMaxHealth(float newAmount)
+        {
+            maxHealth = newAmount;
+            UpdateHealthbarFillAmount();
         }
 
         public virtual void Kill()
@@ -69,6 +86,11 @@ namespace enjoii.Characters
         private void RecalculateHealth(float newAmount)
         {
             currentHealth = newAmount;
+            UpdateHealthbarFillAmount();
+        }
+
+        private void UpdateHealthbarFillAmount()
+        {
             healthBar.fillAmount = currentHealth / maxHealth;
         }
 

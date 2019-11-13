@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace enjoii.Items
 {
-    public class EquipmentContainer : MonoBehaviour
+    public class EquipmentPanel : MonoBehaviour
     {
         // Inspector Fields
         [Header("Equipment Container Configuration")]
@@ -43,7 +43,7 @@ namespace enjoii.Items
             equipmentSlots = equipmentSlotsParent.GetComponentsInChildren<EquipmentSlot>();
         }
 
-        public bool AddItem(EquippableItem item, out EquippableItem previousItem)
+        public bool EquipItem(EquippableItem item, out EquippableItem previousItem)
         {
             for (int i = 0; i < equipmentSlots.Length; i++)
             {
@@ -60,7 +60,7 @@ namespace enjoii.Items
             return false;
         }
 
-        public bool RemoveItem(EquippableItem item)
+        public bool UnEquipItem(EquippableItem item)
         {
             for (int i = 0; i < equipmentSlots.Length; i++)
             {

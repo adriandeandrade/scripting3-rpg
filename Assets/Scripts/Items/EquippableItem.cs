@@ -14,17 +14,19 @@ namespace enjoii.Items
         // Inspector Fields
         [Header("Equippable Item Configuration")]
         [SerializeField] private EquipmentTypes equipmentType;
-        [SerializeField] private int strengthBonus;
+        [SerializeField] private WeaponTypes weaponType = WeaponTypes.None;
+
         [Space]
-        [SerializeField] private float strengthPercentBonus;
+        [SerializeField] private List<BaseStat> baseStats = new List<BaseStat>();
+        [Space]
 
         public GameObject projectilePrefab;
         public Sprite projectileIcon;
 
         // Properties
         public EquipmentTypes EquipmentType => equipmentType;
-        public int StrengthBonus => strengthBonus;
-        public float StrengthPercentBonus => strengthPercentBonus;
+        public WeaponTypes WeaponType => weaponType;
+        public List<BaseStat> Stats => baseStats;
 
         public override Item GetCopy()
         {
@@ -39,24 +41,13 @@ namespace enjoii.Items
         public void Equip(Player character)
         {
             
-            if (strengthBonus != 0)
-            {
-                character.strengthStat.AddModifier(new StatModifier(strengthBonus, StatModifierType.Flat, this));
-            }
-
-            if (strengthPercentBonus != 0)
-            {
-                character.strengthStat.AddModifier(new StatModifier(strengthPercentBonus, StatModifierType.PercentMultiply, this));
-            }
-
-            Debug.Log($"Equipped an item. Strength Value:{character.strengthStat.Value}");
+            Debug.Log($"Equipped an item.");
 
         }
 
         public void UnEquip(Player character)
         {
-            character.strengthStat.RemoveAllModifiersFromSource(this);
-            Debug.Log($"Un-Equipped an item. Strength Value:{character.strengthStat.Value}");
+            Debug.Log($"Un-Equipped an item.");
         }
 
         public override string GetItemType()
@@ -68,8 +59,8 @@ namespace enjoii.Items
         {
             sb.Length = 0;
 
-            AddStat(strengthBonus, "Strength");
-            AddStat(strengthPercentBonus, "Strength", isPercent: true);
+            //AddStat(strengthBonus, "Strength");
+            //AddStat(strengthPercentBonus, "Strength", isPercent: true);
 
             return sb.ToString();
         }

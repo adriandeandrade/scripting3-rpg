@@ -9,11 +9,13 @@ using enjoii.Characters;
 public class InventoryInput : MonoBehaviour
 {
     // Inspector Fields
+    [Header("Inventory Input Configuration")]
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private GameObject equipmentPanel;
     [SerializeField] private GameObject dimBackground;
     [SerializeField] private List<KeyCode> toggleInventoryKeys = new List<KeyCode>();
 
+    private bool isOpen = false;
 
     private void Awake()
     {
@@ -28,36 +30,44 @@ public class InventoryInput : MonoBehaviour
         {
             if (Input.GetKeyDown(key))
             {
-                ToggleInventoryUI();
+                if (isOpen)
+                    DisableInventoryUI();
+                else
+                    EnableInventoryUI();
             }
         }
     }
 
-    public void ToggleInventoryUI()
+    public void EnableInventoryUI()
     {
-        inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-        if (inventoryPanel.activeSelf)
-        {
-            equipmentPanel.SetActive(true);
-            dimBackground.SetActive(true);
-            Time.timeScale = 0;
-        }
-        else
-        {
-            ItemContainer itemContainer;
-            if(IsInsideItemContainer(out itemContainer))
-            {
-                ItemChest chestOpen = itemContainer as ItemChest;
-                chestOpen.ToggleChestUI(false);
-            }
+        inventoryPanel.SetActive(true);
+        equipmentPanel.SetActive(true);
+        dimBackground.SetActive(true);
 
-            equipmentPanel.SetActive(false);
-            dimBackground.SetActive(false);
-            Time.timeScale = 1;
-        }
+        isOpen = true;
+
+        Time.timeScale = 0;
     }
 
-    public bool IsInsideItemContainer(out ItemContainer itemContainer)
+    public void DisableInventoryUI()
+    {
+        inventoryPanel.SetActive(false);
+        equipmentPanel.SetActive(false);
+        dimBackground.SetActive(false);
+
+        ItemContainer itemContainer;
+        if (IsInsideItemContainer(out itemContainer))
+        {
+            ItemChest chestOpen = itemContainer as ItemChest;
+            chestOpen.ToggleChestUI(false);
+        }
+
+        isOpen = false;
+
+        Time.timeScale = 1;
+    }
+
+    private bool IsInsideItemContainer(out ItemContainer itemContainer)
     {
         Player player = GameManager.Instance.PlayerRef;
         itemContainer = player.ItemContainerOpen;
@@ -67,6 +77,7 @@ public class InventoryInput : MonoBehaviour
             return false;
         }
 
+        player.CloseItemContainer(itemContainer);
         return true;
     }
 }

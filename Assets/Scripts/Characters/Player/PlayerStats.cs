@@ -9,6 +9,7 @@ public class PlayerStats : MonoBehaviour
     // Inspector Fields
     [Header("Player Stats Configuration")]
     [SerializeField] private Image xpBarImage;
+    [SerializeField] private Image newXpBar;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private float xpStart = 100f;
 
@@ -42,8 +43,27 @@ public class PlayerStats : MonoBehaviour
 
     private void UpdateXPBar()
     {
-        xpBarImage.fillAmount = currentXP / xpAmountForNextLevel;
+        newXpBar.fillAmount = currentXP / xpAmountForNextLevel;
+
+        StartCoroutine(UpdateBar());
+
         levelText.SetText(currentLevel.ToString());
+    }
+
+    private IEnumerator UpdateBar()
+    {
+        yield return new WaitForSeconds(1f);
+
+        float lerpSpeed = 0.5f;
+        float targetValue = currentXP / xpAmountForNextLevel;
+
+        while(xpBarImage.fillAmount != targetValue)
+        {
+            xpBarImage.fillAmount = Mathf.MoveTowards(xpBarImage.fillAmount, targetValue, lerpSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        yield break;
     }
 
     private void LevelUp()

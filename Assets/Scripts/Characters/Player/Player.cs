@@ -33,6 +33,7 @@ namespace enjoii.Characters
 
         // Properties
         public Inventory Inventory => inventory;
+        public EquipmentContainer EquipmentContainer => equipmentPanel;
         public ItemContainer ItemContainerOpen => openItemContainer;
 
         // Components
@@ -149,7 +150,6 @@ namespace enjoii.Characters
             else if (dropItemSlot.CanRecieveItem(handSlot.ItemInSlot) && handSlot.CanRecieveItem(dropItemSlot.ItemInSlot))
             {
                 SwapItems(dropItemSlot);
-                Debug.Log("#2");
             }
         }
 
@@ -227,7 +227,6 @@ namespace enjoii.Characters
                     if(item.EquipmentType == EquipmentTypes.Weapon1)
                     {
                         OnWeaponEquipped(item);
-                        Debug.Log($"New Strength Stat Value: {strengthStat.Value}");
                     }
                 }
                 else
@@ -275,14 +274,13 @@ namespace enjoii.Characters
 
         public void OpenItemContainer(ItemContainer otherItemContainer)
         {
+            openItemContainer = otherItemContainer;
             inventoryInput.ToggleInventoryUI();
 
-            openItemContainer = otherItemContainer;
             inventory.OnRightClickEvent -= InventoryRightClick;
             inventory.OnRightClickEvent += TransferToItemContainer;
 
             otherItemContainer.OnRightClickEvent += TransferToInventory;
-
             otherItemContainer.OnBeginDragEvent += BeginDrag;
             otherItemContainer.OnEndDragEvent += EndDrag;
             otherItemContainer.OnDragEvent += Drag;

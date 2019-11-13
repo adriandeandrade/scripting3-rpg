@@ -13,6 +13,8 @@ public class InventoryInput : MonoBehaviour
     [SerializeField] private GameObject equipmentPanel;
     [SerializeField] private GameObject dimBackground;
     [SerializeField] private List<KeyCode> toggleInventoryKeys = new List<KeyCode>();
+
+
     private void Awake()
     {
         inventoryPanel.SetActive(false);

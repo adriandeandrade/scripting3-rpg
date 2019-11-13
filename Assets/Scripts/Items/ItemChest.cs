@@ -11,6 +11,7 @@ namespace enjoii.Items
         [SerializeField] private Transform itemsParent;
         [SerializeField] private Transform inventoryParent;
         [SerializeField] private Transform originalParent;
+        [SerializeField] private GameObject interactionText;
         [SerializeField] private KeyCode openKey = KeyCode.F;
 
         // Private Variables
@@ -55,6 +56,7 @@ namespace enjoii.Items
             }
 
             itemsParent.gameObject.SetActive(state);
+            
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -72,6 +74,7 @@ namespace enjoii.Items
             if (gameObject.CompareTag("Player"))
             {
                 isInRange = state;
+                interactionText.SetActive(state);
 
                 if (!isInRange && isOpen)
                 {

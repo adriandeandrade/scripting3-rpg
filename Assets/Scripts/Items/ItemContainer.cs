@@ -139,8 +139,6 @@ namespace enjoii.Items
                 if (ItemSlots[i].ItemInSlot == item)
                 {
                     ItemSlots[i].ItemQuantity--;
-                    Debug.Log($"{item.ItemName} has been removed.");
-
                     return true;
                 }
             }

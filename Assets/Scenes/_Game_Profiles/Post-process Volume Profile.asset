@@ -18,10 +18,10 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 9.5
+    value: 5
   threshold:
     overrideState: 1
-    value: 1
+    value: 1.06
   softKnee:
     overrideState: 1
     value: 0.5
@@ -46,7 +46,7 @@ MonoBehaviour:
     defaultState: 1
   dirtIntensity:
     overrideState: 1
-    value: 0
+    value: 145.64
 --- !u!114 &-2561614651035877712
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -100,7 +100,7 @@ MonoBehaviour:
     value: 1
   temperature:
     overrideState: 1
-    value: -100
+    value: -25.9
   tint:
     overrideState: 1
     value: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
     value: 0
   saturation:
     overrideState: 1
-    value: 0
+    value: -42.6
   brightness:
     overrideState: 1
     value: 0

@@ -38,10 +38,10 @@ namespace enjoii.Items
 
         public void Equip(Player character)
         {
+            
             if (strengthBonus != 0)
             {
                 character.strengthStat.AddModifier(new StatModifier(strengthBonus, StatModifierType.Flat, this));
-                Debug.Log(strengthBonus);
             }
 
             if (strengthPercentBonus != 0)
@@ -49,12 +49,14 @@ namespace enjoii.Items
                 character.strengthStat.AddModifier(new StatModifier(strengthPercentBonus, StatModifierType.PercentMultiply, this));
             }
 
+            Debug.Log($"Equipped an item. Strength Value:{character.strengthStat.Value}");
+
         }
 
         public void UnEquip(Player character)
         {
-            Debug.Log("Un-Equipped an item.");
             character.strengthStat.RemoveAllModifiersFromSource(this);
+            Debug.Log($"Un-Equipped an item. Strength Value:{character.strengthStat.Value}");
         }
 
         public override string GetItemType()

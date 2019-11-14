@@ -37,17 +37,16 @@ namespace enjoii.Items
                 EquipmentSlots[i].OnDropEvent += slot => OnDropEvent(slot);
             }
         }
-
         private void OnValidate()
         {
             equipmentSlots = equipmentSlotsParent.GetComponentsInChildren<EquipmentSlot>();
         }
 
-        public bool EquipItem(EquippableItem item, out EquippableItem previousItem)
+        public bool AddItem(EquippableItem item, out EquippableItem previousItem)
         {
             for (int i = 0; i < equipmentSlots.Length; i++)
             {
-                if(equipmentSlots[i].SlotEquipmentType == item.EquipmentType)
+                if (equipmentSlots[i].SlotEquipmentType == item.EquipmentType)
                 {
                     previousItem = (EquippableItem)equipmentSlots[i].ItemInSlot;
                     equipmentSlots[i].ItemInSlot = item;
@@ -60,11 +59,11 @@ namespace enjoii.Items
             return false;
         }
 
-        public bool UnEquipItem(EquippableItem item)
+        public bool RemoveItem(EquippableItem item)
         {
             for (int i = 0; i < equipmentSlots.Length; i++)
             {
-                if(equipmentSlots[i].ItemInSlot == item)
+                if (equipmentSlots[i].ItemInSlot == item)
                 {
                     equipmentSlots[i].ItemInSlot = null;
                     equipmentSlots[i].ItemQuantity = 0;

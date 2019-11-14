@@ -15,9 +15,6 @@ namespace enjoii.Items
 
         protected override void OnValidate()
         {
-            ItemInSlot = itemInSlot;
-            ItemQuantity = itemQuantity;
-
             gameObject.name = slotEquipmentType.ToString() + " Slot";
         }
 

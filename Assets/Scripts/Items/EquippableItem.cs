@@ -1,10 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
-using enjoii.Characters;
-using enjoii.Stats;
 
 namespace enjoii.Items
 {
@@ -36,18 +32,6 @@ namespace enjoii.Items
         public override void Destroy()
         {
             Destroy(this);
-        }
-
-        public void Equip(Player character)
-        {
-            
-            Debug.Log($"Equipped an item.");
-
-        }
-
-        public void UnEquip(Player character)
-        {
-            Debug.Log($"Un-Equipped an item.");
         }
 
         public override string GetItemType()

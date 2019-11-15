@@ -10,7 +10,7 @@ public class Arrow : MonoBehaviour
     private Vector2 direction;
     private bool doMovement = false;
     private float speed;
-    private float damage;
+    private float damage = 15f;
 
 
     // Components
@@ -36,7 +36,7 @@ public class Arrow : MonoBehaviour
     public void LaunchProjectile(Vector2 _direction, float _speed, Sprite arrowSprite, float _damage)
     {
         spriteRenderer.sprite = arrowSprite;
-        damage = _damage;
+        //damage = _damage;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.rotation = Quaternion.LookRotation(Vector3.forward, (Vector3)mousePos - transform.position);

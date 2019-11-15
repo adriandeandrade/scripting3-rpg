@@ -47,6 +47,7 @@ public class WeaponController : MonoBehaviour
 
         equippedWeapon = Instantiate(item.GetSpawnablePrefab(), hand);
         weapon = equippedWeapon.GetComponent<IWeapon>();
+        weapon.OnWeaponEquipped();
 
         player.CharacterStats.AddStatModifier(item.Stats);
 

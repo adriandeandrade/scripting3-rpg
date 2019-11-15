@@ -185,21 +185,6 @@ namespace enjoii.Characters
 
         private void SwapItems(BaseItemSlot dropItemSlot)
         {
-            //EquippableItem selectedEquippable = selectedSlot.ItemInSlot as EquippableItem;
-            //EquippableItem dropItemSlotEquippable = dropItemSlot.ItemInSlot as EquippableItem;
-
-            //if (dropItemSlot is EquipmentSlot)
-            //{
-            //    if (selectedEquippable != null) Equip(selectedEquippable);
-            //    if (dropItemSlotEquippable != null) UnEquip(dropItemSlotEquippable);
-            //}
-
-            //if (selectedSlot is EquipmentSlot)
-            //{
-            //    if (selectedEquippable != null) UnEquip(selectedEquippable);
-            //    if (dropItemSlotEquippable != null) Equip(dropItemSlotEquippable);
-            //}
-
             Item selectedSlotItem = selectedSlot.ItemInSlot;
             int selectedSlotItemQuantity = selectedSlot.ItemQuantity;
 

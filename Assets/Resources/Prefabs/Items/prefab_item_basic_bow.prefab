@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bowEvents: {fileID: 4174769652356059676}
-  bowitem: {fileID: 0}
+  weaponData: {fileID: 11400000, guid: 9ac2f3af331b83843a5955a9448ab61d, type: 2}
   arrowHolder: {fileID: 4174769652356059665}
   drawBowKey: 32
   arrowGhostImage: {fileID: 4174769651608945739}

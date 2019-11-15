@@ -7,8 +7,9 @@ using enjoii.Items;
 public interface IWeapon
 {
     List<BaseStat> WeaponStats { get; set; }
-    EquippableItem EquippableItemData { get; }
+    EquippableItem WeaponData { get; }
     int CurrentDamage { get; set; }
     void PerformAttack(int damage);
     void PerformSpecialAttack();
+    void OnWeaponEquipped();
 }

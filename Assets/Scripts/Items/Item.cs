@@ -49,6 +49,8 @@ namespace enjoii.Items
 
         public virtual string GetDescription()
         {
+            // TODO: wadawd
+
             return "";
         }
 
@@ -56,7 +58,11 @@ namespace enjoii.Items
         {
             string searchName = this.name;
             int index1 = searchName.IndexOf("(Clone)"); // Since we are creating copies of the object, the word Clone gets added onto the end of the object name so I have to remove it.
-            searchName = searchName.Remove(index1);
+
+            if (index1 != -1)
+            {
+                searchName = searchName.Remove(index1);
+            }
 
             GameObject prefab = Resources.Load<GameObject>($"Prefabs/Items/prefab_{searchName}");
 

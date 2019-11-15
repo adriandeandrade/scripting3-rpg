@@ -22,7 +22,9 @@ MonoBehaviour:
   - statType: 0
     statModifiers:
     - modifierValue: 5
+    statDescription: 
+    baseValue: 0
   projectilePrefab: {fileID: 6279292550039662983, guid: e827c1e13a5306c4ba52ae3e3a196fee,
     type: 3}
-  projectileIcon: {fileID: 6065581960130789434, guid: e06e22735e67ba242b1f8f9a90f1edff,
+  projectileIcon: {fileID: -5226568554515659833, guid: e06e22735e67ba242b1f8f9a90f1edff,
     type: 3}

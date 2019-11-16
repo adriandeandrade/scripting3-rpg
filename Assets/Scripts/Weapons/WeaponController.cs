@@ -11,7 +11,7 @@ public class WeaponController : MonoBehaviour
     [Header("Weapon Controller Configuration")]
     [SerializeField] private Transform hand;
     [SerializeField] private GameObject equippedWeapon;
-    [SerializeField] private EquippableItem itemTest;
+    [SerializeField] private KeyCode attackKey = KeyCode.Space;
 
     // Private Variables
     private Player player;
@@ -32,9 +32,9 @@ public class WeaponController : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(attackKey))
         {
-            EquipWeapon(itemTest);
+            PerformWeaponAttack();
         }
     }
 
@@ -58,7 +58,7 @@ public class WeaponController : MonoBehaviour
     {
         if (weapon == null) weapon = equippedWeapon.GetComponent<IWeapon>();
 
-        //player.CharacterStats.RemoveStatModifier(weapon.EquippableItemData.Stats);
+        // TODO: Remove stat modifiers from character stats.
         Destroy(equippedWeapon);
         weapon = null;
 
@@ -67,12 +67,13 @@ public class WeaponController : MonoBehaviour
 
     public void PerformWeaponAttack()
     {
-        IWeapon weapon = equippedWeapon.GetComponent<IWeapon>();
+        //IWeapon weapon = equippedWeapon.GetComponent<IWeapon>();
 
         if(weapon != null)
         {
             // TODO: Change this so damage is based on stats instead.
             weapon.PerformAttack(1);
+            Debug.Log("Attack performed.");
         }
     }
 }

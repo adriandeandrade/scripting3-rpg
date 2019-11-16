@@ -15,7 +15,8 @@ MonoBehaviour:
   itemName: Basic Bow
   itemDescription: Just a regular bow
   maxStackSize: 1
-  itemIcon: {fileID: 21300000, guid: fd24d58c332dcc14da77a52da30043f4, type: 3}
+  itemIcon: {fileID: -415446080585258355, guid: 879065a94bd028f4b971cc31d84fe707,
+    type: 3}
   equipmentType: 4
   weaponType: 2
   baseStats:
@@ -26,5 +27,5 @@ MonoBehaviour:
     baseValue: 0
   projectilePrefab: {fileID: 6279292550039662983, guid: e827c1e13a5306c4ba52ae3e3a196fee,
     type: 3}
-  projectileIcon: {fileID: -5226568554515659833, guid: e06e22735e67ba242b1f8f9a90f1edff,
+  projectileIcon: {fileID: 6065581960130789434, guid: e06e22735e67ba242b1f8f9a90f1edff,
     type: 3}

@@ -224,6 +224,7 @@ namespace enjoii.Characters
                     if (previousItem != null) // Check to see if we already have something equipped.
                     {
                         inventory.AddItem(previousItem);
+                        UnEquip(previousItem);
                     }
 
                     OnWeaponEquipped(item);

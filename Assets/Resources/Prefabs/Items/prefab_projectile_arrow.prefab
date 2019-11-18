@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 15012185}
   - component: {fileID: 1691243110886573529}
   m_Layer: 0
-  m_Name: prefab_item_base_arrow
+  m_Name: prefab_projectile_arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,7 +161,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 1
   m_Sprite: {fileID: 6065581960130789434, guid: e06e22735e67ba242b1f8f9a90f1edff,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

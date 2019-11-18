@@ -27,7 +27,7 @@ namespace enjoii.Items
         protected override void Awake()
         {
             base.Awake();
-            SetStartingItems();
+            //SetStartingItems();
         }
 
         private void SetStartingItems()

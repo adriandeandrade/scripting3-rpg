@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 4174769652356059676}
   - component: {fileID: 1409538607}
   m_Layer: 0
-  m_Name: prefab_item_basic_bow
+  m_Name: prefab_item_bow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bowEvents: {fileID: 4174769652356059676}
-  weaponData: {fileID: 11400000, guid: 9ac2f3af331b83843a5955a9448ab61d, type: 2}
+  weaponData: {fileID: 11400000, guid: 2d150fc50fcd5eb40968ce7f9d7e9082, type: 2}
   drawBowKey: 32
   arrowGhostImage: {fileID: 4174769651608945739}
   bowImage: {fileID: 8036759983411972337}

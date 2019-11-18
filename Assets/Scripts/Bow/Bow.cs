@@ -80,7 +80,6 @@ public class Bow : MonoBehaviour, IWeapon
             case BowState.READY:
                 currentBowState = BowState.READY;
                 bowAnimator.SetBool("Ready", true);
-                //bowAnimator.SetBool("Drawing", false);
                 break;
         }
     }

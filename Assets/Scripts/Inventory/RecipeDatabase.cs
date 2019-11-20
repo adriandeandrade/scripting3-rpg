@@ -21,7 +21,7 @@ namespace enjoii.Items
         {
             foreach (CraftingRecipe craftingRecipe in recipes)
             {
-                if (craftingRecipe.requiredItems.OrderBy(i => i).SequenceEqual(recipe.OrderBy(i => i)))
+                if (craftingRecipe.requiredItems.OrderBy(i => i).SequenceEqual(recipe.OrderBy(i => i))) // Order elements in the recipe so recipe is shapeless.
                 {
                     return itemDatabase.GetItem(craftingRecipe.itemToCraft);
                 }
@@ -34,13 +34,21 @@ namespace enjoii.Items
         {
             recipes = new List<CraftingRecipe>()
         {
-            new CraftingRecipe(3,
+            new CraftingRecipe(3, // Crafts regular bow.
                 new int[]
                 {
                     0, 0, 0,
                     0, 0, 0,
                     1, 2, 0
-                })
+                }),
+
+            new CraftingRecipe(4, // Crafts strong bow.
+                new int[]
+                {
+                    0, 1, 0,
+                    0, 1, 0,
+                    0, 3, 0
+                }),
         };
         }
     }

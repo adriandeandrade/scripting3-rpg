@@ -39,7 +39,6 @@ namespace enjoii.Items
         // Properties
         public Item ItemInSlot { get => itemInSlot; set => itemInSlot = value; }
         public SlotType SlotType { get => slotType; set => slotType = value; }
-        
 
         private void Awake()
         {

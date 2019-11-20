@@ -11,7 +11,7 @@ namespace enjoii.Items
         [SerializeField] private ItemSlot craftResultSlot;
 
         // Private Variables
-        private List<ItemSlot> uiItems = new List<ItemSlot>();
+        private List<ItemSlot> craftingSlots = new List<ItemSlot>();
 
         private void Awake()
         {
@@ -20,18 +20,18 @@ namespace enjoii.Items
 
         private void Start()
         {
-            uiItems = GetComponent<SlotPanel>().ItemSlots;
-            uiItems.ForEach(i => i.SlotType = SlotType.CraftingSlot);
+            craftingSlots = GetComponent<SlotPanel>().ItemSlots; // Get the slots from the panel.
+            craftingSlots.ForEach(i => i.SlotType = SlotType.CraftingSlot); // Set every slot in the crafting panel to crafting slots.
         }
 
         public void UpdateRecipe()
         {
-            int[] itemTable = new int[uiItems.Count];
-            for (int i = 0; i < uiItems.Count; i++)
+            int[] itemTable = new int[craftingSlots.Count]; // Update items in crafting slots. [ 0 = No item in slot, anything else is an item id]
+            for (int i = 0; i < craftingSlots.Count; i++)
             {
-                if (uiItems[i].ItemInSlot != null)
+                if (craftingSlots[i].ItemInSlot != null)
                 {
-                    itemTable[i] = uiItems[i].ItemInSlot.id;
+                    itemTable[i] = craftingSlots[i].ItemInSlot.id; // Loop through the item table and see what item is in the current crafting slot and set its id.
                 }
             }
 

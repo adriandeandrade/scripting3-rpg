@@ -9,7 +9,7 @@ public abstract class BaseEnemy : BaseCharacter
     // Inspector Fields
     [Header("Base Enemy Setup")]
     [SerializeField] private int xpDropAmount;
-    [SerializeField] private List<Item> lootDrops = new List<Item>(); 
+    [SerializeField] private List<int> lootDrops = new List<int>(); 
     [SerializeField] private GameObject dieParticle;
 
     // Private Variables
@@ -62,9 +62,11 @@ public abstract class BaseEnemy : BaseCharacter
         for (int i = 0; i < dropAmount; i++)
         {
             int randomIndex = Random.Range(0, lootDrops.Count);
-            Item nextItemSpawn = lootDrops[randomIndex];
 
-            GameObject lootItemInstace = Instantiate(nextItemSpawn.GetSpawnablePrefab(), transform.position, Quaternion.identity);
+            int nextItemSpawnID = lootDrops[randomIndex];
+            Item itemToDrop = GameManager.Instance.ItemDatabase.GetItem(nextItemSpawnID);
+
+            GameObject lootItemInstace = Instantiate(GameManager.Instance.ItemDatabase.GetSpawnablePrefab(nextItemSpawnID), transform.position, Quaternion.identity);
             lootItemInstace.GetComponent<ItemObject>().MoveItemInRandomDirection();
         }
     }

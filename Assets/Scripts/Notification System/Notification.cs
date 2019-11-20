@@ -13,10 +13,10 @@ public class Notification : MonoBehaviour
 
     private float currentFadeTime;
 
-    public void SetNotificationData(Item itemData)
+    public void SetNotificationData(Item item)
     {
         currentFadeTime = fadeTime;
-        notificationText.SetText($"+1 {itemData.ItemName}");
+        notificationText.SetText($"+1 {item.name}");
     }
 
     public void Update()

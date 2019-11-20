@@ -179,9 +179,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bowEvents: {fileID: 4174769652356059676}
-  weaponData: {fileID: 11400000, guid: 2d150fc50fcd5eb40968ce7f9d7e9082, type: 2}
+  itemID: 3
   drawBowKey: 32
   arrowGhostImage: {fileID: 4174769651608945739}
+  arrowSprite: {fileID: 21300000, guid: 981011ee5a6f1e142a9a9a39c5f640c9, type: 3}
+  arrowPrefab: {fileID: 6279292550039662983, guid: e827c1e13a5306c4ba52ae3e3a196fee,
+    type: 3}
   bowImage: {fileID: 8036759983411972337}
   startPoint: {fileID: 0}
   bowTransform: {fileID: 2331962370950123295}

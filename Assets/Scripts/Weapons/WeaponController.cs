@@ -24,12 +24,6 @@ public class WeaponController : MonoBehaviour
         player = GetComponent<Player>();
     }
 
-    private void Start()
-    {
-        player.OnWeaponEquipped += item => EquipWeapon(item);
-        player.OnWeaponDequipped += UnEquipWeapon;
-    }
-
     private void Update()
     {
         if(Input.GetKeyDown(attackKey))
@@ -38,21 +32,21 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    private void EquipWeapon(EquippableItem item)
-    {
-        if(equippedWeapon != null)
-        {
-            UnEquipWeapon();
-        }
+    //private void EquipWeapon(EquippableItem item)
+    //{
+    //    if(equippedWeapon != null)
+    //    {
+    //        UnEquipWeapon();
+    //    }
 
-        equippedWeapon = Instantiate(item.GetSpawnablePrefab(), hand);
-        weapon = equippedWeapon.GetComponent<IWeapon>();
-        weapon.OnWeaponEquipped();
+    //    equippedWeapon = Instantiate(item.GetSpawnablePrefab(), hand);
+    //    weapon = equippedWeapon.GetComponent<IWeapon>();
+    //    weapon.OnWeaponEquipped();
 
-        player.CharacterStats.AddStatModifier(item.Stats);
+    //    player.CharacterStats.AddStatModifier(item.Stats);
 
-        Debug.Log($"Item: {item.ItemName} was equipped.");
-    }
+    //    Debug.Log($"Item: {item.ItemName} was equipped.");
+    //}
 
     private void UnEquipWeapon()
     {
@@ -67,7 +61,7 @@ public class WeaponController : MonoBehaviour
 
     public void PerformWeaponAttack()
     {
-        //IWeapon weapon = equippedWeapon.GetComponent<IWeapon>();
+        IWeapon weapon = equippedWeapon.GetComponent<IWeapon>();
 
         if(weapon != null)
         {

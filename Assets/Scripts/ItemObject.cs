@@ -8,7 +8,7 @@ using enjoii.Characters;
 public class ItemObject : MonoBehaviour
 {
     // Inspector Fields
-    [SerializeField] private Item item;
+    [SerializeField] private string itemID;
 
     private Rigidbody2D rBody;
 
@@ -30,7 +30,7 @@ public class ItemObject : MonoBehaviour
 
             if(player != null)
             {
-                if(player.PickupItem(item))
+                if (player.PickupItem(itemID))
                 {
                     Destroy(gameObject);
                 }

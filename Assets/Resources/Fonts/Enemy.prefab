@@ -224,8 +224,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: ENEMY NAME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5b838e8c26ffdc8408d60fe3621e4213, type: 2}
@@ -382,8 +380,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: faf92cb3ee1fe4d4e9b70207eb17ca8a, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
@@ -540,8 +536,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
@@ -653,9 +647,7 @@ MonoBehaviour:
   healthBar: {fileID: 3113833012991856203}
   characterNameText: {fileID: 3113833012919549878}
   xpDropAmount: 5
-  lootDrops:
-  - {fileID: 11400000, guid: c596ee496970b3b438b38ff2392bf81b, type: 2}
-  - {fileID: 11400000, guid: ce82917a7f235ba4b9e488dfd843cc15, type: 2}
+  lootDrops: 0100000002000000
   dieParticle: {fileID: 541660091346572526, guid: 866cc983bcbd89746a89acab3473453d,
     type: 3}
   dashSpeed: 12

@@ -10,7 +10,18 @@ PrefabInstance:
     - target: {fileID: 5293474558384922324, guid: eac167521f028d5469d1c9024bf2c999,
         type: 3}
       propertyPath: m_Name
-      value: prefab_item_magical_essence Variant
+      value: prefab_item_magical_essence
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821605523158308843, guid: eac167521f028d5469d1c9024bf2c999,
+        type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: ce82917a7f235ba4b9e488dfd843cc15,
+        type: 2}
+    - target: {fileID: 6821605523158308843, guid: eac167521f028d5469d1c9024bf2c999,
+        type: 3}
+      propertyPath: itemID
+      value: item_magical_essence
       objectReference: {fileID: 0}
     - target: {fileID: 5825456635402037589, guid: eac167521f028d5469d1c9024bf2c999,
         type: 3}
@@ -67,12 +78,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6821605523158308843, guid: eac167521f028d5469d1c9024bf2c999,
-        type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 11400000, guid: ce82917a7f235ba4b9e488dfd843cc15,
-        type: 2}
     - target: {fileID: 4622829558857206529, guid: eac167521f028d5469d1c9024bf2c999,
         type: 3}
       propertyPath: m_Sprite

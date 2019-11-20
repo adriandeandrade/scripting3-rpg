@@ -10,12 +10,17 @@ PrefabInstance:
     - target: {fileID: 5293474558384922324, guid: eac167521f028d5469d1c9024bf2c999,
         type: 3}
       propertyPath: m_Name
-      value: prefab_item_basic_bow
+      value: prefab_item_bow_pickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821605523158308843, guid: eac167521f028d5469d1c9024bf2c999,
+        type: 3}
+      propertyPath: itemID
+      value: item_weapon_bow
       objectReference: {fileID: 0}
     - target: {fileID: 5825456635402037589, guid: eac167521f028d5469d1c9024bf2c999,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.81
+      value: -3.77
       objectReference: {fileID: 0}
     - target: {fileID: 5825456635402037589, guid: eac167521f028d5469d1c9024bf2c999,
         type: 3}
@@ -67,12 +72,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6821605523158308843, guid: eac167521f028d5469d1c9024bf2c999,
-        type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 11400000, guid: 2d150fc50fcd5eb40968ce7f9d7e9082,
-        type: 2}
     - target: {fileID: 4622829558857206529, guid: eac167521f028d5469d1c9024bf2c999,
         type: 3}
       propertyPath: m_Sprite

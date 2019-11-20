@@ -27,7 +27,7 @@ public class Cheats : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.O))
         {
-            player.OnXPAdded(45f);
+            //player.OnXPAdded(45f);
         }
     }
 }

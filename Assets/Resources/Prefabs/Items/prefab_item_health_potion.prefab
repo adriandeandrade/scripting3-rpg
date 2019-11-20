@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 7587424123967610382, guid: c48e31a314e2e6446b20afdb234964f3,
         type: 3}
       propertyPath: m_Name
-      value: prefab_item_health_potion Variant
+      value: prefab_item_health_potion
       objectReference: {fileID: 0}
     - target: {fileID: 8135168796292606351, guid: c48e31a314e2e6446b20afdb234964f3,
         type: 3}
@@ -73,6 +73,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: c596ee496970b3b438b38ff2392bf81b,
         type: 2}
+    - target: {fileID: 9121749736279889713, guid: c48e31a314e2e6446b20afdb234964f3,
+        type: 3}
+      propertyPath: itemID
+      value: item_health_potion
+      objectReference: {fileID: 0}
     - target: {fileID: 6924944028254620635, guid: c48e31a314e2e6446b20afdb234964f3,
         type: 3}
       propertyPath: m_Sprite

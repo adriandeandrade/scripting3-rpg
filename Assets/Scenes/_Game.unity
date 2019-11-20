@@ -375,7 +375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ef3c2ad853d26449aa98981235656f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDatabase: {fileID: 11400000, guid: 89157a9025baa124b9eae6e796f35ac8, type: 2}
 --- !u!114 &292756870 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 478165283930663986, guid: af6276e798f783d429ccdecabf844b7e,
@@ -5103,8 +5102,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
@@ -6231,7 +6228,7 @@ PrefabInstance:
     - target: {fileID: 2795448923276986185, guid: af6276e798f783d429ccdecabf844b7e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 318.14777
+      value: 318.09937
       objectReference: {fileID: 0}
     - target: {fileID: 2795448923276986185, guid: af6276e798f783d429ccdecabf844b7e,
         type: 3}

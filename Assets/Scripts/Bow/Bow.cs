@@ -45,7 +45,6 @@ public class Bow : MonoBehaviour, IWeapon
     private Player player;
 
     public int CurrentDamage { get; set; }
-    public List<BaseStat> WeaponStats { get; set; }
     public int ItemID { get; set; }
 
     private void Awake()

@@ -6,9 +6,9 @@ using System.Linq;
 namespace enjoii.Items
 {
     [RequireComponent(typeof(ItemDatabase))]
-    public class CraftingDatabase : MonoBehaviour
+    public class RecipeDatabase : MonoBehaviour
     {
-        public List<CraftingRecipe> recipes = new List<CraftingRecipe>();
+        private List<CraftingRecipe> recipes = new List<CraftingRecipe>();
         private ItemDatabase itemDatabase;
 
         private void Awake()

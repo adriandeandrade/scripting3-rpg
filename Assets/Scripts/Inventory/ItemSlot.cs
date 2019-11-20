@@ -11,22 +11,35 @@ namespace enjoii.Items
         ItemSlot,
         CraftingSlot,
         CraftingResultSlot,
-        EquippableSlot
+        EquippableSlot,
+        TrashSlot
     }
-
 
     public class ItemSlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        public Item item;
-        public SlotType slotType;
-        public bool craftingResultSlot = false;
-
+        // Inspector Fields
         [SerializeField] private Image itemIconImage;
+        [SerializeField] private Image slotImage;
+        [SerializeField] private SlotType slotType;
+        [SerializeField] private bool craftingResultSlot = false;
+
+        [Header("Slot Configuration")]
+        [SerializeField] private Sprite trashSlotSprite;
+        [SerializeField] private Sprite equippableSlotSprite;
+
+        // Private Variables
+        private Item itemInSlot;
         private ItemSlot selectedItem;
+
         private CraftingPanel craftingSlots;
         private EquipmentPanel equippableSlots;
         private Tooltip tooltip;
         private Inventory inventory;
+
+        // Properties
+        public Item ItemInSlot { get => itemInSlot; set => itemInSlot = value; }
+        public SlotType SlotType { get => slotType; set => slotType = value; }
+        
 
         private void Awake()
         {
@@ -39,14 +52,37 @@ namespace enjoii.Items
         private void Start()
         {
             inventory = GameManager.Instance.PlayerRef.Inventory;
+            InitializeSlot();
             ClearSlot();
+        }
+
+        private void InitializeSlot()
+        {
+            switch(slotType)
+            {
+                case SlotType.CraftingResultSlot:
+                    break;
+
+                case SlotType.CraftingSlot:
+                    break;
+
+                case SlotType.EquippableSlot:
+                    break;
+
+                case SlotType.ItemSlot:
+                    break;
+
+                case SlotType.TrashSlot:
+                    slotImage.sprite = trashSlotSprite;
+                    break;
+            }
         }
 
         public void UpdateSlot(Item item)
         {
-            this.item = item;
+            this.itemInSlot = item;
 
-            if (this.item != null)
+            if (this.itemInSlot != null)
             {
                 itemIconImage.color = Color.white;
                 itemIconImage.sprite = item.icon;
@@ -81,20 +117,24 @@ namespace enjoii.Items
                 case SlotType.ItemSlot:
                     HandleItemSlot(eventData);
                     break;
+
+                case SlotType.TrashSlot:
+                    HandleTrashSlot(eventData);
+                    break;
             }
         }
 
         private void HandleEquipmentSlot(PointerEventData eventData)
         {
-            if (this.item == null) return;
+            if (this.itemInSlot == null) return;
             
             if (eventData != null && eventData.button == PointerEventData.InputButton.Right)
             {
-                EquipmentItem equippable = this.item as EquipmentItem;
+                EquipmentItem equippable = this.itemInSlot as EquipmentItem;
 
                 int slotIndex = GameManager.Instance.PlayerRef.EquipmentManager.GetSlotIndex((equippable));
 
-                Debug.Log($"{this.item.name} has been unequipped.");
+                Debug.Log($"{this.itemInSlot.name} has been unequipped.");
                 GameManager.Instance.PlayerRef.EquipmentManager.Unequip(slotIndex);
 
                 ClearSlot();
@@ -103,36 +143,36 @@ namespace enjoii.Items
 
         private void HandleItemSlot(PointerEventData eventData)
         {
-            if (this.item != null)
+            if (this.itemInSlot != null)
             {
-                if(this.item is EquipmentItem)
+                if(this.itemInSlot is EquipmentItem)
                 {
                     if(eventData != null && eventData.button == PointerEventData.InputButton.Right)
                     {
-                        EquipmentItem clone = new EquipmentItem(this.item as EquipmentItem);
+                        EquipmentItem clone = new EquipmentItem(this.itemInSlot as EquipmentItem);
                         GameManager.Instance.PlayerRef.EquipmentManager.Equip(clone);
-                        Debug.Log($"{this.item.name} has been equipped.");
+                        Debug.Log($"{this.itemInSlot.name} has been equipped.");
                         ClearSlot();
 
                         return;
                     }
                 }
 
-                if (selectedItem.item != null) // If we are dragging an item and there's an item in the slot.
+                if (selectedItem.itemInSlot != null) // If we are dragging an item and there's an item in the slot.
                 {
-                    Item clone = new Item(selectedItem.item);
-                    selectedItem.UpdateSlot(this.item);
+                    Item clone = new Item(selectedItem.itemInSlot);
+                    selectedItem.UpdateSlot(this.itemInSlot);
                     UpdateSlot(clone);
                 }
                 else
                 {
-                    selectedItem.UpdateSlot(item);
+                    selectedItem.UpdateSlot(itemInSlot);
                     ClearSlot();
                 }
             }
-            else if (selectedItem.item != null && !craftingResultSlot && slotType != SlotType.EquippableSlot)
+            else if (selectedItem.itemInSlot != null && !craftingResultSlot && slotType != SlotType.EquippableSlot)
             {
-                UpdateSlot(selectedItem.item);
+                UpdateSlot(selectedItem.itemInSlot);
                 selectedItem.ClearSlot();
             }
         }
@@ -147,19 +187,29 @@ namespace enjoii.Items
         {
             UICraftResult craftResult = GetComponent<UICraftResult>();
 
-            if (craftResult != null && this.item != null && selectedItem.item == null)
+            if (craftResult != null && this.itemInSlot != null && selectedItem.itemInSlot == null)
             {
                 craftResult.PickItem();
-                selectedItem.UpdateSlot(this.item);
+                selectedItem.UpdateSlot(this.itemInSlot);
                 craftResult.ClearSlots();
+            }
+        }
+
+        private void HandleTrashSlot(PointerEventData eventData)
+        {
+            if(selectedItem.ItemInSlot != null)
+            {
+                GameManager.Instance.PlayerRef.Inventory.RemoveItem(selectedItem.ItemInSlot.id);
+                selectedItem.ClearSlot();
+                ClearSlot();
             }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (this.item != null)
+            if (this.itemInSlot != null)
             {
-                tooltip.GenerateToolTip(this.item);
+                tooltip.GenerateToolTip(this.itemInSlot);
             }
         }
 
@@ -170,7 +220,7 @@ namespace enjoii.Items
 
         private void ClearSlot()
         {
-            this.item = null;
+            this.itemInSlot = null;
             itemIconImage.color = Color.clear;
         }
     }

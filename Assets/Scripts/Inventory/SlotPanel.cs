@@ -7,11 +7,13 @@ namespace enjoii.Items
 {
     public class SlotPanel : MonoBehaviour
     {
-        public List<ItemSlot> itemSlots = new List<ItemSlot>();
-        public int slotAmount;
-        public SlotType slotType;
-
+        // Inspector Fields
+        [SerializeField] private int slotAmount;
+        [SerializeField] private SlotType slotType;
         private const string slotPrefabPath = "Prefabs/Slot";
+
+        // Properties
+        public List<ItemSlot> ItemSlots { get; } = new List<ItemSlot>();
 
         private void Awake()
         {
@@ -19,11 +21,11 @@ namespace enjoii.Items
             {
                 GameObject newSlot = Instantiate(Resources.Load<GameObject>(slotPrefabPath));
                 ItemSlot slotUIItem = newSlot.GetComponentInChildren<ItemSlot>();
-                slotUIItem.slotType = slotType;
+                slotUIItem.SlotType = slotType;
 
                 newSlot.transform.SetParent(transform);
-                itemSlots.Add(slotUIItem);
-                itemSlots[i].item = null;
+                ItemSlots.Add(slotUIItem);
+                ItemSlots[i].ItemInSlot = null;
             }
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
@@ -31,29 +33,29 @@ namespace enjoii.Items
 
         public void UpdateSlot(int slot, Item item)
         {
-            itemSlots[slot].UpdateSlot(item);
+            ItemSlots[slot].UpdateSlot(item);
         }
 
         public void AddNewItem(Item item)
         {
-            UpdateSlot(itemSlots.FindIndex(i => i.item == null), item);
+            UpdateSlot(ItemSlots.FindIndex(i => i.ItemInSlot == null), item);
         }
 
         public void RemoveItem(Item item)
         {
-            UpdateSlot(itemSlots.FindIndex(i => i.item == item), null);
+            UpdateSlot(ItemSlots.FindIndex(i => i.ItemInSlot == item), null);
         }
 
         public void EmptyAllSlots()
         {
-            itemSlots.ForEach(i => i.UpdateSlot(null));
+            ItemSlots.ForEach(i => i.UpdateSlot(null));
         }
 
         public bool ContainsEmptySlot()
         {
-            foreach (ItemSlot uIItem in itemSlots)
+            foreach (ItemSlot uIItem in ItemSlots)
             {
-                if (uIItem.item == null) return true;
+                if (uIItem.ItemInSlot == null) return true;
             }
 
             return false;

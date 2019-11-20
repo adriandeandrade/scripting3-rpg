@@ -6,7 +6,7 @@ namespace enjoii.Items
 {
     public class ItemDatabase : MonoBehaviour
     {
-        public List<Item> items = new List<Item>();
+        private List<Item> items = new List<Item>();
 
         private void Awake()
         {
@@ -31,8 +31,7 @@ namespace enjoii.Items
             new Dictionary<string, int>
             {
                 {"Power", 15},
-                {"Defence", 7},
-                {"Agility", 12}
+                {"Defence", 7}
             }),
 
             new Item(2, "Health Potion", "Heals for 5 HP.", "item_health_potion",
@@ -43,24 +42,21 @@ namespace enjoii.Items
             new Dictionary<string, int>
             {
                 {"Power", 12},
-                {"Defence", 1},
-                {"Agility", 15}
+                {"Defence", 1}
             }),
 
             new EquipmentItem(4, "Strong Bow", "A stronger bow.", "item_weapon_strong_bow", EquipmentType.Weapon,
             new Dictionary<string, int>
             {
                 {"Power", 15},
-                {"Defence", 1},
-                {"Agility", 13}
+                {"Defence", 1}
             }),
 
             new EquipmentItem(5, "Basic Armor", "Just a basic armor set.", "item_helmet_basic_armor", EquipmentType.Helmet,
             new Dictionary<string, int>
             {
                 {"Power", 2},
-                {"Defence", 2},
-                {"Agility", 10}
+                {"Defence", 2}
             }),
         };
         }
@@ -73,6 +69,20 @@ namespace enjoii.Items
             GameObject prefab = Resources.Load<GameObject>($"Prefabs/Items/{searchName}");
             
             if(prefab == null)
+            {
+                Debug.Log("Could not find prefab!");
+                return null;
+            }
+
+            return prefab;
+        }
+
+        public GameObject GetSpawnablePrefab(string fileName)
+        {
+            string searchName = $"prefab_{fileName}";
+            GameObject prefab = Resources.Load<GameObject>($"Prefabs/Items/{searchName}");
+
+            if (prefab == null)
             {
                 Debug.Log("Could not find prefab!");
                 return null;

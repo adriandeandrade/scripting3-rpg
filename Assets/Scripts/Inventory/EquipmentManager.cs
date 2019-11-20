@@ -4,59 +4,70 @@ using UnityEngine;
 
 using enjoii.Items;
 
-public class EquipmentManager : MonoBehaviour
+namespace enjoii.Items
 {
-    public EquipmentItem[] defaultEquipment;
-    public EquipmentItem[] currentEquipment;
-
-    private Inventory inventory;
-    public EquipmentPanel equipmentPanel;
-
-    private void Awake()
+    public class EquipmentManager : MonoBehaviour
     {
-        inventory = FindObjectOfType<Inventory>();
-        equipmentPanel = FindObjectOfType<EquipmentPanel>();
-    }
-    private void Start()
-    {
-        int numSlots = System.Enum.GetNames(typeof(EquipmentType)).Length;
-        currentEquipment = new EquipmentItem[numSlots];
-    }
+        // Inspector Fields
+        [SerializeField] private EquipmentPanel equipmentPanel;
 
-    public void Equip(EquipmentItem item)
-    {
-        int slotIndex = (int)item.equipmentType;
-        EquipmentItem oldItem = Unequip(slotIndex);
+        // Private Variables
+        private EquipmentItem[] currentEquipment;
+        private Inventory inventory;
+        private WeaponController weaponController;
 
-        if(currentEquipment[slotIndex] != null)
+        // Event
+        //public System.Action<EquipmentItem, EquipmentItem> OnEquipmentChanged;
+
+        private void Awake()
         {
-            oldItem = currentEquipment[slotIndex];
-            inventory.GiveItem(oldItem.id);
+            weaponController = GetComponent<WeaponController>();
         }
 
-        currentEquipment[slotIndex] = item;
-        inventory.RemoveItem(item.id);
-        equipmentPanel.UpdateEquippableSlot(slotIndex, item);
-    }
-
-    public EquipmentItem Unequip(int slotIndex)
-    {
-        EquipmentItem oldItem = null;
-
-        if (currentEquipment[slotIndex] != null)
+        private void Start()
         {
-            oldItem = currentEquipment[slotIndex];
-            inventory.GiveItem(oldItem.id);
+            int numSlots = System.Enum.GetNames(typeof(EquipmentType)).Length;
+            currentEquipment = new EquipmentItem[numSlots];
 
-            currentEquipment[slotIndex] = null;
-            equipmentPanel.UpdateEquippableSlot(slotIndex, null);
+            inventory = GameManager.Instance.PlayerRef.Inventory;
         }
 
-        return oldItem;
-    }
+        public void Equip(EquipmentItem item)
+        {
+            int slotIndex = (int)item.equipmentType;
+            EquipmentItem oldItem = Unequip(slotIndex);
 
-    public int GetSlotIndex(EquipmentItem item)
-    {
-        return (int)item.equipmentType;
+            if(item.equipmentType == EquipmentType.Weapon)
+            {
+                weaponController.EquipWeapon(item);
+            }
+
+            currentEquipment[slotIndex] = item;
+            inventory.RemoveItem(item.id);
+            equipmentPanel.UpdateEquippableSlot(slotIndex, item);
+        }
+
+        public EquipmentItem Unequip(int slotIndex)
+        {
+            EquipmentItem oldItem = null;
+
+            if (currentEquipment[slotIndex] != null)
+            {
+                oldItem = currentEquipment[slotIndex];
+                inventory.GiveItem(oldItem.id);
+
+                currentEquipment[slotIndex] = null;
+                weaponController.UnEquipWeapon();
+                equipmentPanel.UpdateEquippableSlot(slotIndex, null);
+            }
+
+            return oldItem;
+        }
+
+        public int GetSlotIndex(EquipmentItem item)
+        {
+            return (int)item.equipmentType;
+        }
     }
 }
+

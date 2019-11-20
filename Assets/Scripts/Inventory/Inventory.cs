@@ -6,18 +6,19 @@ namespace enjoii.Items
 {
     public class Inventory : MonoBehaviour
     {
-        public List<Item> items = new List<Item>();
-
-        private ItemDatabase itemDatabase;
+        // Inspector Fields
+        [SerializeField] private List<Item> items = new List<Item>();
         [SerializeField] private UIInventory inventoryUI;
+
+        // Private Variables
+        private ItemDatabase itemDatabase;
+
+        // Properties
+        public List<Item> Items => items;
 
         private void Start()
         {
             itemDatabase = GameManager.Instance.ItemDatabase;
-
-            GiveItem(1);
-            GiveItem(2);
-            GiveItem(3);
         }
 
         private void Update()

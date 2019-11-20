@@ -10,24 +10,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     private Player player;
-    private ItemDatabase itemDatabase;
 
-//    public static GameManager Instance
-//    {
-//        get
-//        {
-//            if (instance == null) instance = Instantiate(Resources.Load<GameManager>("GameManager"));
-//            return instance;
-//;        }
-//    }
-
-    public ItemDatabase ItemDatabase
-    {
-        get
-        {
-            return itemDatabase;
-        }
-    }
+    public ItemDatabase ItemDatabase { get; private set; }
+    public RecipeDatabase RecipeDatabase { get; private set; }
 
     public Player PlayerRef
     {
@@ -37,31 +22,23 @@ public class GameManager : MonoBehaviour
             return player;
         }
     }
-    
 
     private void InitSingleton()
     {
-        //Check if instance already exists
         if (Instance == null)
-
-            //if not, set instance to this
             Instance = this;
-
-        //If instance already exists and it's not this:
         else if (Instance != this)
-
-            //Then destroy this. This enforces our singleton pattern, 
-            // meaning there can only ever be one instance of a GameManager.
             Destroy(gameObject);
-
-        //Sets this to not be destroyed when reloading scene / Switching scenes
-        DontDestroyOnLoad(gameObject); // VERY IMPORTANT
+        
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Awake()
     {
         InitSingleton();
-        itemDatabase = FindObjectOfType<ItemDatabase>();
+
+        RecipeDatabase = FindObjectOfType<RecipeDatabase>();
+        ItemDatabase = FindObjectOfType<ItemDatabase>();
         player = FindObjectOfType<Player>();
     }
 }

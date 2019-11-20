@@ -16,12 +16,18 @@ public class WeaponController : MonoBehaviour
     // Private Variables
     private Player player;
     private IWeapon weapon;
+    private EquipmentItem currentWeaponItem;
 
     // Properties
 
     private void Awake()
     {
         player = GetComponent<Player>();
+    }
+
+    private void Start()
+    {
+        weapon = null;
     }
 
     private void Update()
@@ -32,29 +38,33 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    //private void EquipWeapon(EquippableItem item)
-    //{
-    //    if(equippedWeapon != null)
-    //    {
-    //        UnEquipWeapon();
-    //    }
-
-    //    equippedWeapon = Instantiate(item.GetSpawnablePrefab(), hand);
-    //    weapon = equippedWeapon.GetComponent<IWeapon>();
-    //    weapon.OnWeaponEquipped();
-
-    //    player.CharacterStats.AddStatModifier(item.Stats);
-
-    //    Debug.Log($"Item: {item.ItemName} was equipped.");
-    //}
-
-    private void UnEquipWeapon()
+    public void EquipWeapon(EquipmentItem weaponItem)
     {
-        if (weapon == null) weapon = equippedWeapon.GetComponent<IWeapon>();
+        if (weaponItem == null) return;
 
-        // TODO: Remove stat modifiers from character stats.
-        Destroy(equippedWeapon);
+        if(weapon != null && equippedWeapon != null)
+        {
+            UnEquipWeapon();
+        }
+
+        player.CharacterStats.AddModifiers(weaponItem);
+
+        equippedWeapon = Instantiate(GameManager.Instance.ItemDatabase.GetSpawnablePrefab(weaponItem.fileName), hand);
+        weapon = equippedWeapon.GetComponent<IWeapon>();
+        weapon.OnWeaponEquipped();
+        currentWeaponItem = weaponItem;
+    }
+
+    public void UnEquipWeapon()
+    {
+        if (equippedWeapon != null)
+        {
+            Destroy(equippedWeapon);
+        }
+
+        player.CharacterStats.RemoveModifiers(currentWeaponItem);
         weapon = null;
+        currentWeaponItem = null;
 
         Debug.Log($"Item: was un equipped.");
     }

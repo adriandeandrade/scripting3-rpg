@@ -160,10 +160,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 903c7095a72db0342af34e99550b3207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    id: 0
-    name: 
-    description: 
-    fileName: 
-    icon: {fileID: 0}
   itemIconImage: {fileID: 8405146286736537948}
+  slotImage: {fileID: 8405146284934773336}
+  slotType: 0
+  craftingResultSlot: 0
+  trashSlotSprite: {fileID: 21300000, guid: ef0583a149868814ba3072ff4725eace, type: 3}
+  equippableSlotSprite: {fileID: 0}

@@ -7,6 +7,7 @@ namespace enjoii.Items
 {
     public class Tooltip : MonoBehaviour
     {
+        // Inspector Fields
         [SerializeField] private TextMeshProUGUI itemNameText;
         [SerializeField] private TextMeshProUGUI itemDescriptionText;
 

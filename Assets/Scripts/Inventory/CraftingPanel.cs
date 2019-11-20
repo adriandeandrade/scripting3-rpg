@@ -6,20 +6,22 @@ namespace enjoii.Items
 {
     public class CraftingPanel : MonoBehaviour
     {
-        public CraftingDatabase recipeDatabase;
-        public ItemSlot craftResultSlot;
+        // Inspector Fields
+        [SerializeField] RecipeDatabase recipeDatabase;
+        [SerializeField] private ItemSlot craftResultSlot;
 
+        // Private Variables
         private List<ItemSlot> uiItems = new List<ItemSlot>();
 
         private void Awake()
         {
-            craftResultSlot.slotType = SlotType.CraftingResultSlot;
+            craftResultSlot.SlotType = SlotType.CraftingResultSlot;
         }
 
         private void Start()
         {
-            uiItems = GetComponent<SlotPanel>().itemSlots;
-            uiItems.ForEach(i => i.slotType = SlotType.CraftingSlot);
+            uiItems = GetComponent<SlotPanel>().ItemSlots;
+            uiItems.ForEach(i => i.SlotType = SlotType.CraftingSlot);
         }
 
         public void UpdateRecipe()
@@ -27,9 +29,9 @@ namespace enjoii.Items
             int[] itemTable = new int[uiItems.Count];
             for (int i = 0; i < uiItems.Count; i++)
             {
-                if (uiItems[i].item != null)
+                if (uiItems[i].ItemInSlot != null)
                 {
-                    itemTable[i] = uiItems[i].item.id;
+                    itemTable[i] = uiItems[i].ItemInSlot.id;
                 }
             }
 

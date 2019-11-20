@@ -19,7 +19,7 @@ namespace enjoii.Characters
 
         [Header("Stats")]
         [SerializeField] private PlayerStats playerStats;
-        [SerializeField] private CharacterStats characterStats;
+        [SerializeField] private PlayerCharacterStats characterStats;
 
         // Private Variables
         private Inventory inventory;
@@ -27,7 +27,7 @@ namespace enjoii.Characters
         private EquipmentManager equipmentManager;
 
         //Properties
-        public CharacterStats CharacterStats => characterStats;
+        public PlayerCharacterStats CharacterStats => characterStats;
         public Inventory Inventory => inventory;
         public EquipmentManager EquipmentManager => equipmentManager;
 
@@ -35,9 +35,9 @@ namespace enjoii.Characters
         {
             gameManager = GameManager.Instance;
             inventory = GetComponent<Inventory>();
+            characterStats = GetComponent<PlayerCharacterStats>();
             equipmentManager = GetComponent<EquipmentManager>();
             weaponController = GetComponent<WeaponController>();
-            characterStats = new CharacterStats(5, 5);
             base.Awake();
         }
 

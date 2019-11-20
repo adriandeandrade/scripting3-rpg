@@ -7,12 +7,20 @@ namespace enjoii.Items
 {
     public class UICraftResult : MonoBehaviour
     {
-        public SlotPanel slotPanel;
-        public Inventory inventory;
+        // Inspector Fields
+        [SerializeField] private SlotPanel slotPanel;
+
+        // Private Variables
+        private Inventory inventory;
+
+        private void Start()
+        {
+            inventory = GameManager.Instance.PlayerRef.Inventory;
+        }
 
         public void PickItem()
         {
-            inventory.items.Add(GetComponent<ItemSlot>().item);
+            inventory.Items.Add(GetComponent<ItemSlot>().ItemInSlot);
         }
 
         public void ClearSlots()

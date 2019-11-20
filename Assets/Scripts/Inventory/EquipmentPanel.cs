@@ -14,8 +14,8 @@ public class EquipmentPanel : MonoBehaviour
 
     private void Awake()
     {
-        equipmentSlots = GetComponent<SlotPanel>().itemSlots;
-        equipmentSlots.ForEach(i => i.slotType = SlotType.EquippableSlot);
+        equipmentSlots = GetComponent<SlotPanel>().ItemSlots;
+        equipmentSlots.ForEach(i => i.SlotType = SlotType.EquippableSlot);
     }
 
     private void Start()

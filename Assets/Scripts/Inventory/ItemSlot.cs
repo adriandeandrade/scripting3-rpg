@@ -6,15 +6,6 @@ using UnityEngine.EventSystems;
 
 namespace enjoii.Items
 {
-    public enum SlotType
-    {
-        ItemSlot,
-        CraftingSlot,
-        CraftingResultSlot,
-        EquippableSlot,
-        TrashSlot
-    }
-
     public class ItemSlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
     {
         // Inspector Fields

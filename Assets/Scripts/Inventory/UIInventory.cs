@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using enjoii.Items.Slot;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,17 @@ namespace enjoii.Items
                 {
                     slotPanel.AddNewItem(item);
                     break;
+                }
+            }
+        }
+
+        public void ClearItems()
+        {
+            foreach(SlotPanel slotPanel in slotPanels)
+            {
+                foreach (BaseItemSlot itemSlot in slotPanel.ItemSlots)
+                {
+                    itemSlot.UpdateSlot(null);
                 }
             }
         }

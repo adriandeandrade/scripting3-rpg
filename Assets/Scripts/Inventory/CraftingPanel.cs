@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using enjoii.Items.Slot;
+
 namespace enjoii.Items
 {
     public class CraftingPanel : MonoBehaviour
     {
         // Inspector Fields
         [SerializeField] RecipeDatabase recipeDatabase;
-        [SerializeField] private ItemSlot craftResultSlot;
+        [SerializeField] private BaseItemSlot craftResultSlot;
 
         // Private Variables
-        private List<ItemSlot> craftingSlots = new List<ItemSlot>();
+        private List<BaseItemSlot> craftingSlots = new List<BaseItemSlot>();
 
         private void Awake()
         {

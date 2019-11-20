@@ -68,6 +68,14 @@ namespace enjoii.Items
         {
             return (int)item.equipmentType;
         }
+
+        public void UnequipAll()
+        {
+            for (int i = 0; i < currentEquipment.Length; i++)
+            {
+                Unequip(i);
+            }
+        }
     }
 }
 

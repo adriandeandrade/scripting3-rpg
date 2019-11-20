@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using enjoii.Items.Slot;
+
 namespace enjoii.Items
 {
     public class SlotPanel : MonoBehaviour
@@ -10,17 +12,23 @@ namespace enjoii.Items
         // Inspector Fields
         [SerializeField] private int slotAmount;
         [SerializeField] private SlotType slotType;
-        private const string slotPrefabPath = "Prefabs/Slot";
+        private const string slotPrefabPath = "Prefabs/Slots/";
 
         // Properties
-        public List<ItemSlot> ItemSlots { get; } = new List<ItemSlot>();
+        public List<BaseItemSlot> ItemSlots { get; } = new List<BaseItemSlot>();
 
         private void Awake()
         {
+            InitializePanel();
+        }
+        private void InitializePanel()
+        {
+            GameObject slotPrefab = Resources.Load<GameObject>($"{slotPrefabPath}{slotType.ToString()}");
+
             for (int i = 0; i < slotAmount; i++)
             {
-                GameObject newSlot = Instantiate(Resources.Load<GameObject>(slotPrefabPath));
-                ItemSlot slotUIItem = newSlot.GetComponentInChildren<ItemSlot>();
+                GameObject newSlot = Instantiate(slotPrefab);
+                BaseItemSlot slotUIItem = newSlot.GetComponentInChildren<BaseItemSlot>();
                 slotUIItem.SlotType = slotType;
 
                 newSlot.transform.SetParent(transform);
@@ -53,9 +61,9 @@ namespace enjoii.Items
 
         public bool ContainsEmptySlot()
         {
-            foreach (ItemSlot uIItem in ItemSlots)
+            foreach (BaseItemSlot itemSlot in ItemSlots)
             {
-                if (uIItem.ItemInSlot == null) return true;
+                if (itemSlot.ItemInSlot == null) return true;
             }
 
             return false;

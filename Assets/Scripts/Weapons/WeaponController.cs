@@ -65,6 +65,7 @@ public class WeaponController : MonoBehaviour
         player.CharacterStats.RemoveModifiers(currentWeaponItem);
         weapon = null;
         currentWeaponItem = null;
+        equippedWeapon = null;
 
         Debug.Log($"Item: was un equipped.");
     }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+using enjoii.Items.Slot;
+
 namespace enjoii.Items
 {
     public class UICraftResult : MonoBehaviour
@@ -20,7 +22,7 @@ namespace enjoii.Items
 
         public void PickItem()
         {
-            inventory.Items.Add(GetComponent<ItemSlot>().ItemInSlot);
+            inventory.Items.Add(GetComponent<CraftingResultSlot>().ItemInSlot);
         }
 
         public void ClearSlots()

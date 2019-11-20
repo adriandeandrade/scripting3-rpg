@@ -9,15 +9,24 @@ namespace enjoii.Items
         // Inspector Fields
         [SerializeField] private List<Item> items = new List<Item>();
         [SerializeField] private UIInventory inventoryUI;
+        [SerializeField] private SlotPanel slotPanel;
 
         // Private Variables
         private ItemDatabase itemDatabase;
+        private ItemSaveManager itemSaveManager;
 
         // Properties
         public List<Item> Items => items;
 
+        private void Awake()
+        {
+            itemSaveManager = GetComponent<ItemSaveManager>();
+        }
+
         private void Start()
         {
+            //itemSaveManager.LoadInventory(slotPanel);
+
             itemDatabase = GameManager.Instance.ItemDatabase;
         }
 
@@ -109,6 +118,12 @@ namespace enjoii.Items
             {
                 items.Remove(itemToRemove);
             }
+        }
+
+        public void ClearItems()
+        {
+            items.Clear();
+            inventoryUI.ClearItems();
         }
     }
 }

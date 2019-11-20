@@ -3,24 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using enjoii.Items;
+using enjoii.Items.Slot;
 
 public class EquipmentPanel : MonoBehaviour
 {
-    // Inspector Fields
-    [SerializeField] private ItemDatabase itemDatabase;
-
     // Private Variables
-    private List<ItemSlot> equipmentSlots;
+    private List<BaseItemSlot> equipmentSlots;
 
     private void Awake()
     {
         equipmentSlots = GetComponent<SlotPanel>().ItemSlots;
         equipmentSlots.ForEach(i => i.SlotType = SlotType.EquippableSlot);
-    }
-
-    private void Start()
-    {
-        itemDatabase = GameManager.Instance.ItemDatabase;
     }
 
     public void UpdateEquippableSlot(int slotIndex, EquipmentItem item)

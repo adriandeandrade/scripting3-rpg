@@ -10,11 +10,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     private Player player;
-
-    public ItemDatabase ItemDatabase { get; private set; }
-    public RecipeDatabase RecipeDatabase { get; private set; }
-    public SaveManager SaveManager { get; private set; }
-
     public Player PlayerRef
     {
         get
@@ -24,9 +19,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public ItemDatabase ItemDatabase { get; private set; }
+    public RecipeDatabase RecipeDatabase { get; private set; }
+    public SceneController SceneController { get; private set; }
+
     public void Initialize()
     {
         Debug.Log("Game Manager Initialized.");
+        SaveSystem.Init();
+
+        RecipeDatabase = FindObjectOfType<RecipeDatabase>();
+        ItemDatabase = FindObjectOfType<ItemDatabase>();
+        SceneController = FindObjectOfType<SceneController>();
+        player = FindObjectOfType<Player>();
     }
 
     private void InitSingleton()
@@ -45,7 +50,17 @@ public class GameManager : MonoBehaviour
 
         RecipeDatabase = FindObjectOfType<RecipeDatabase>();
         ItemDatabase = FindObjectOfType<ItemDatabase>();
-        SaveManager = FindObjectOfType<SaveManager>();
+        SceneController = FindObjectOfType<SceneController>();
         player = FindObjectOfType<Player>();
+    }
+
+    public void Save()
+    {
+        player.Save();
+    }
+
+    public void Load()
+    {
+        player.Load();
     }
 }

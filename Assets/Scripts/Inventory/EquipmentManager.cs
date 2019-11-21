@@ -22,22 +22,34 @@ namespace enjoii.Items
         private void Awake()
         {
             weaponController = GetComponent<WeaponController>();
-        }
-
-        private void Start()
-        {
             inventory = GameManager.Instance.PlayerRef.Inventory;
             int numSlots = System.Enum.GetNames(typeof(EquipmentType)).Length;
             currentEquipment = new EquipmentItem[numSlots];
         }
 
+        private void Start()
+        {
+            
+        }
+
         public void Equip(EquipmentItem item)
         {
+            if (item == null)
+            {
+                return;
+            }
+
             int slotIndex = (int)item.equipmentType;
             EquipmentItem oldItem = Unequip(slotIndex);
 
             if(item.equipmentType == EquipmentType.Weapon)
             {
+                if(weaponController == null)
+                {
+                    Debug.Log("Weapon controller not found.");
+                    return;
+                }
+
                 weaponController.EquipWeapon(item);
             }
 

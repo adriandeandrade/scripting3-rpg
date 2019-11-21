@@ -7,19 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneFinishedLoading;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneFinishedLoading;
-    }
-
     public void SaveGame()
     {
-        SaveLoad.Save();
+        GameManager.Instance.Save();
     }
 
     public void ExitGame()

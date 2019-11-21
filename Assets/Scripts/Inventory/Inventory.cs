@@ -13,20 +13,12 @@ namespace enjoii.Items
 
         // Private Variables
         private ItemDatabase itemDatabase;
-        private SaveManager itemSaveManager;
 
         // Properties
         public List<Item> Items => items;
 
-        private void Awake()
-        {
-            itemSaveManager = GetComponent<SaveManager>();
-        }
-
         private void Start()
         {
-            //itemSaveManager.LoadInventory(slotPanel);
-
             itemDatabase = GameManager.Instance.ItemDatabase;
         }
 

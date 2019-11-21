@@ -1,13 +1,32 @@
-﻿using System.Collections;
+﻿using enjoii.Items;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    public void LoadLevelAsync()
+    private void OnEnable()
     {
-        var operation = SceneManager.LoadSceneAsync("Game");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode loadMode)
+    {
+        if(scene.name == "Game")
+        {
+            GameManager.Instance.PlayerRef.EquipmentManager = FindObjectOfType<EquipmentManager>();
+            GameManager.Instance.Load();
+        }
+    }
+
+    public void LoadLevelAsync(string sceneName)
+    {
+        var operation = SceneManager.LoadSceneAsync(sceneName);
         Debug.Log("Starting load....");
 
         operation.allowSceneActivation = false;

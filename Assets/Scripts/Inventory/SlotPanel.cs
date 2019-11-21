@@ -16,6 +16,7 @@ namespace enjoii.Items
 
         // Properties
         public List<BaseItemSlot> ItemSlots { get; } = new List<BaseItemSlot>();
+        public SlotType SlotType { get => slotType; }
 
         private void Awake()
         {

@@ -6,16 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    // Inspector Fields
-    [SerializeField] private SaveManager itemSaveManager;
-
-    private void Start()
-    {
-        itemSaveManager = FindObjectOfType<SaveManager>();
-    }
-
     public void LoadGame()
     {
-        SceneManager.LoadScene(1);
+        GameManager.Instance.Load();
     }
 }

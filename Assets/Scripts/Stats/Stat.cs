@@ -31,4 +31,9 @@ public class Stat
             modifiers.Remove(modifier);
         }
     }
+
+    public void UpgradeBaseValue(int upgradeAmount)
+    {
+        baseValue += upgradeAmount;
+    }
 }

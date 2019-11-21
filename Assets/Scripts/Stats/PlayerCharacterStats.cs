@@ -13,9 +13,6 @@ public class PlayerCharacterStats : CharacterStats
             powerStat.AddModifier(item.stats["Power"]);
             defenceStat.AddModifier(item.stats["Defence"]);
         }
-
-        Debug.Log(powerStat.GetValue());
-        Debug.Log(defenceStat.GetValue());
     }
 
     public void RemoveModifiers(EquipmentItem item)

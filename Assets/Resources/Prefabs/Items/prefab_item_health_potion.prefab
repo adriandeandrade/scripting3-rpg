@@ -78,11 +78,26 @@ PrefabInstance:
       propertyPath: itemID
       value: item_health_potion
       objectReference: {fileID: 0}
+    - target: {fileID: 6924944028254620636, guid: c48e31a314e2e6446b20afdb234964f3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.033
+      objectReference: {fileID: 0}
+    - target: {fileID: 6924944028254620636, guid: c48e31a314e2e6446b20afdb234964f3,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6924944028254620636, guid: c48e31a314e2e6446b20afdb234964f3,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6924944028254620635, guid: c48e31a314e2e6446b20afdb234964f3,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -3543485243834422511, guid: e06e22735e67ba242b1f8f9a90f1edff,
+      objectReference: {fileID: 21300000, guid: 7042007dbbd42a146b7259b9036e5b0b,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c48e31a314e2e6446b20afdb234964f3, type: 3}

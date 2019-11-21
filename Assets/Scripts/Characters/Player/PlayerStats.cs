@@ -75,7 +75,7 @@ public class PlayerStats : MonoBehaviour
         currentXP = 0;
         xpAmountForNextLevel = xpStart * currentLevel;
         currentLevel++;
-        //GameManager.Instance.PlayerRef.strengthStat.BaseValue += 0.5f;
+        GameManager.Instance.PlayerRef.CharacterStats.powerStat.UpgradeBaseValue(1);
         UpdateXPBar();
     }
 

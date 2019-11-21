@@ -112,7 +112,6 @@ public class Bow : MonoBehaviour, IWeapon
             case BowState.READY:
                 if (Input.GetKeyUp(drawBowKey))
                 {
-                    Debug.Log("Shot");
                     bowAnimator.SetTrigger("Shoot");
                     ShootArrow();
                     SetState(BowState.IDLE);
@@ -135,6 +134,8 @@ public class Bow : MonoBehaviour, IWeapon
         SetArrowImage();
         equipped = true;
         EnableBowImage();
+        CurrentDamage = GameManager.Instance.PlayerRef.CharacterStats.powerStat.GetValue();
+        Debug.Log(CurrentDamage);
     }
 
     private void ShootArrow()
@@ -146,7 +147,7 @@ public class Bow : MonoBehaviour, IWeapon
         Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = (mousePos - (Vector2)transform.position).normalized;
 
-        newArrow.LaunchProjectile(direction, 25f, arrowSprite, 1);
+        newArrow.LaunchProjectile(direction, 25f, arrowSprite, CurrentDamage);
         arrowGhostImage.sprite = null;
     }
 
@@ -190,7 +191,6 @@ public class Bow : MonoBehaviour, IWeapon
 
     private void OnBowReset()
     {
-        Debug.Log("Bow has been shot and has reset itself.");
         bowAnimator.ResetTrigger("Shoot");
         bowAnimator.SetBool("Drawing", false);
         bowAnimator.SetBool("Ready", false);

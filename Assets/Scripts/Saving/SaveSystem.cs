@@ -28,10 +28,28 @@ public static class SaveSystem
         File.WriteAllText($"{SAVE_FOLDER}save_{saveNumber}.{SAVE_EXTENSION}", saveString);
     }
 
+    public static string Load(FileInfo saveFileToLoad)
+    {
+        FileInfo[] saveFiles = GetSaveFiles();
+
+        foreach (FileInfo fileInfo in saveFiles)
+        {
+            if(saveFileToLoad != null)
+            {
+                if (saveFileToLoad == fileInfo)
+                {
+                    string saveString = File.ReadAllText(saveFileToLoad.FullName);
+                    return saveString;
+                }
+            }
+        }
+
+        return null;
+    }
+
     public static string Load()
     {
-        DirectoryInfo directoryInfo = new DirectoryInfo(SAVE_FOLDER);
-        FileInfo[] saveFiles = directoryInfo.GetFiles($"*.{SAVE_EXTENSION}");
+        FileInfo[] saveFiles = GetSaveFiles();
 
         FileInfo mostRecentFile = null;
 
@@ -59,5 +77,12 @@ public static class SaveSystem
         {
             return null;
         }
+    }
+
+    public static FileInfo[] GetSaveFiles()
+    {
+        DirectoryInfo directoryInfo = new DirectoryInfo(SAVE_FOLDER);
+        FileInfo[] saveFiles = directoryInfo.GetFiles($"*.{SAVE_EXTENSION}");
+        return saveFiles;
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 using enjoii.Items;
 using enjoii.Items.Slot;
+using System.IO;
 
 namespace enjoii.Characters
 {
@@ -52,7 +53,6 @@ namespace enjoii.Characters
         public void OnXPAdded(float amount)
         {
             playerStats.AddXP(amount);
-            Debug.Log($"{amount} of XP was gained.");
         }
 
         public bool PickupItem(string itemID)
@@ -152,7 +152,7 @@ namespace enjoii.Characters
                 GameManager.Instance.PlayerRef.EquipmentManager.Equip(item as EquipmentItem);
             }
 
-            Debug.Log($"Equipment Loaded");
+            //Debug.Log($"Equipment Loaded");
         }
 
         private PlayerStatSaveData SavePlayerStats(PlayerStats _playerStats)

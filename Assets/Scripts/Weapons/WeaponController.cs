@@ -18,6 +18,8 @@ public class WeaponController : MonoBehaviour
     private IWeapon weapon;
     private EquipmentItem currentWeaponItem;
 
+    private float currentDamage;
+
     // Properties
 
     private void Awake()
@@ -53,6 +55,7 @@ public class WeaponController : MonoBehaviour
         weapon = equippedWeapon.GetComponent<IWeapon>();
         weapon.OnWeaponEquipped();
         currentWeaponItem = weaponItem;
+        currentDamage = player.CharacterStats.powerStat.GetValue();
     }
 
     public void UnEquipWeapon()
@@ -77,8 +80,7 @@ public class WeaponController : MonoBehaviour
         if(weapon != null)
         {
             // TODO: Change this so damage is based on stats instead.
-            weapon.PerformAttack(1);
-            Debug.Log("Attack performed.");
+            weapon.PerformAttack((int)currentDamage);
         }
     }
 }

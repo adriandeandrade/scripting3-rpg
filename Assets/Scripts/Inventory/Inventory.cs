@@ -13,14 +13,14 @@ namespace enjoii.Items
 
         // Private Variables
         private ItemDatabase itemDatabase;
-        private ItemSaveManager itemSaveManager;
+        private SaveManager itemSaveManager;
 
         // Properties
         public List<Item> Items => items;
 
         private void Awake()
         {
-            itemSaveManager = GetComponent<ItemSaveManager>();
+            itemSaveManager = GetComponent<SaveManager>();
         }
 
         private void Start()
@@ -58,18 +58,28 @@ namespace enjoii.Items
             }
         }
 
-        public void GiveItem(int id)
+        public Item GiveItem(int id)
         {
             Item itemToAdd = itemDatabase.GetItem(id);
             inventoryUI.AddItemToUI(itemToAdd);
             items.Add(itemToAdd);
+
+            return itemToAdd;
         }
 
-        public void GiveItem(string fileName)
+        public Item GiveItem(string fileName)
         {
             Item itemToAdd = itemDatabase.GetItem(fileName);
             inventoryUI.AddItemToUI(itemToAdd);
             items.Add(itemToAdd);
+
+            return itemToAdd;
+        }
+
+        public void GiveItem(Item item)
+        {
+            inventoryUI.AddItemToUI(item);
+            items.Add(item);
         }
 
         public Item CheckForItem(int id)

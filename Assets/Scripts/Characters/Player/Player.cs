@@ -21,6 +21,11 @@ namespace enjoii.Characters
         [SerializeField] private PlayerStats playerStats;
         [SerializeField] private PlayerCharacterStats characterStats;
 
+        [Header("Panels")]
+        [SerializeField] private SlotPanel inventoryPanel;
+        [SerializeField] private SlotPanel craftingPanel;
+        [SerializeField] private SlotPanel equipmentPanel;
+
         // Private Variables
         private Inventory inventory;
         private GameManager gameManager;
@@ -28,17 +33,29 @@ namespace enjoii.Characters
 
         //Properties
         public PlayerCharacterStats CharacterStats => characterStats;
-        public Inventory Inventory => inventory;
         public EquipmentManager EquipmentManager => equipmentManager;
+        public Inventory Inventory => inventory;
+
+        public SlotPanel InventoryPanel => inventoryPanel;
+        public SlotPanel CraftingPanel => craftingPanel;
+        public SlotPanel EquipmentPanel => equipmentPanel;
+
+        public PlayerStats PlayerStats { get => playerStats; }
 
         protected override void Awake()
         {
             gameManager = GameManager.Instance;
+            equipmentManager = GetComponent<EquipmentManager>();
             inventory = GetComponent<Inventory>();
             characterStats = GetComponent<PlayerCharacterStats>();
-            equipmentManager = GetComponent<EquipmentManager>();
             weaponController = GetComponent<WeaponController>();
+            playerStats = GetComponent<PlayerStats>();
             base.Awake();
+        }
+
+        protected override void Start()
+        {
+            base.Start();
         }
 
         public void OnXPAdded(float amount)

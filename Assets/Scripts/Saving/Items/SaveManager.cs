@@ -6,7 +6,7 @@ using enjoii.Items;
 using enjoii.Items.Slot;
 using enjoii.Characters;
 
-public class ItemSaveManager : MonoBehaviour
+public class SaveManager : MonoBehaviour
 {
     // Inspector Fields
 
@@ -14,6 +14,7 @@ public class ItemSaveManager : MonoBehaviour
     private const string InventoryFileName = "Inventory";
     private const string EquipmentFileName = "Equipment";
     private const string CraftingFileName = "Crafting";
+    private const string PlayerStatsFileName = "PlayerStats";
 
     private ItemDatabase itemDatabase;
 
@@ -42,9 +43,10 @@ public class ItemSaveManager : MonoBehaviour
 
         if (savedSlots == null) return;
 
+        slotPanel.EmptyAllSlots();
         GameManager.Instance.PlayerRef.Inventory.ClearItems();
 
-        for(int i = 0; i < savedSlots.SavedSlots.Length; i++)
+        for (int i = 0; i < savedSlots.SavedSlots.Length; i++)
         {
             BaseItemSlot itemSlot = slotPanel.ItemSlots[i];
             BaseItemSlotData savedSlot = savedSlots.SavedSlots[i];
@@ -70,15 +72,15 @@ public class ItemSaveManager : MonoBehaviour
 
         if (savedSlots == null) return;
 
+        slotPanel.EmptyAllSlots();
         GameManager.Instance.PlayerRef.EquipmentManager.UnequipAll();
 
-        foreach(BaseItemSlotData savedSlot in savedSlots.SavedSlots)
+        foreach (BaseItemSlotData savedSlot in savedSlots.SavedSlots)
         {
             if (savedSlot == null)
                 continue;
 
             Item item = itemDatabase.GetItem(savedSlot.itemID);
-            //GameManager.Instance.PlayerRef.Inventory.GiveItem(item.id);
             GameManager.Instance.PlayerRef.EquipmentManager.Equip(item as EquipmentItem);
         }
 
@@ -93,7 +95,7 @@ public class ItemSaveManager : MonoBehaviour
         {
             BaseItemSlot itemSlot = itemSlots[i];
 
-            if(itemSlot.ItemInSlot == null)
+            if (itemSlot.ItemInSlot == null)
             {
                 saveData.SavedSlots[i] = null;
             }
@@ -104,5 +106,27 @@ public class ItemSaveManager : MonoBehaviour
         }
 
         ItemSaveIO.SaveItems(saveData, fileName);
+    }
+
+    public void SaveStats(PlayerStats playerStats)
+    {
+        SavePlayerStats(playerStats, PlayerStatsFileName);
+        Debug.Log($"Stats saved");
+    }
+    public void LoadStats(PlayerStats playerStats)
+    {
+        PlayerStatSaveData savedData = PlayerStatsSaveIO.LoadItems(PlayerStatsFileName);
+
+        if (savedData == null) return;
+
+        playerStats.Load(savedData);
+
+        Debug.Log($"Stats Loaded");
+    }
+
+    private void SavePlayerStats(PlayerStats playerStats, string fileName)
+    {
+        var saveData = new PlayerStatSaveData(playerStats.CurrentLevel, playerStats.CurrentXP);
+        PlayerStatsSaveIO.SaveItems(saveData, fileName);
     }
 }

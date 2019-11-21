@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     public ItemDatabase ItemDatabase { get; private set; }
     public RecipeDatabase RecipeDatabase { get; private set; }
+    public SaveManager SaveManager { get; private set; }
 
     public Player PlayerRef
     {
@@ -21,6 +22,11 @@ public class GameManager : MonoBehaviour
             if (player == null) player = FindObjectOfType<Player>();
             return player;
         }
+    }
+
+    public void Initialize()
+    {
+        Debug.Log("Game Manager Initialized.");
     }
 
     private void InitSingleton()
@@ -39,6 +45,7 @@ public class GameManager : MonoBehaviour
 
         RecipeDatabase = FindObjectOfType<RecipeDatabase>();
         ItemDatabase = FindObjectOfType<ItemDatabase>();
+        SaveManager = FindObjectOfType<SaveManager>();
         player = FindObjectOfType<Player>();
     }
 }

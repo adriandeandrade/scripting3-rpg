@@ -18,6 +18,10 @@ public class PlayerStats : MonoBehaviour
     private float currentXP;
     private float xpAmountForNextLevel;
 
+    public float CurrentLevel { get => currentLevel; set => currentLevel = value; }
+    public float CurrentXP { get => currentXP; set => currentXP = value; }
+    public float XpAmountForNextLevel { get => xpAmountForNextLevel; set => xpAmountForNextLevel = value; }
+
     private void Awake()
     {
         currentXP = 0;
@@ -73,5 +77,13 @@ public class PlayerStats : MonoBehaviour
         currentLevel++;
         //GameManager.Instance.PlayerRef.strengthStat.BaseValue += 0.5f;
         UpdateXPBar();
+    }
+
+    public void Load(PlayerStatSaveData saveData)
+    {
+        CurrentXP = saveData.currentXP;
+        currentLevel = saveData.currentLevel;
+
+        levelText.SetText(currentLevel.ToString());
     }
 }

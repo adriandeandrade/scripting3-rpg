@@ -26,10 +26,9 @@ namespace enjoii.Items
 
         private void Start()
         {
+            inventory = GameManager.Instance.PlayerRef.Inventory;
             int numSlots = System.Enum.GetNames(typeof(EquipmentType)).Length;
             currentEquipment = new EquipmentItem[numSlots];
-
-            inventory = GameManager.Instance.PlayerRef.Inventory;
         }
 
         public void Equip(EquipmentItem item)
@@ -71,6 +70,8 @@ namespace enjoii.Items
 
         public void UnequipAll()
         {
+            if (currentEquipment == null || currentEquipment.Length == 0) return;
+
             for (int i = 0; i < currentEquipment.Length; i++)
             {
                 Unequip(i);

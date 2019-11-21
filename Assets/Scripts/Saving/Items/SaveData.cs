@@ -21,3 +21,16 @@ public class SlotPanelSaveData
         SavedSlots = new BaseItemSlotData[amountOfSavedSlots];
     }
 }
+
+[Serializable]
+public class PlayerStatSaveData
+{
+    public float currentLevel;
+    public float currentXP;
+
+    public PlayerStatSaveData(float currentLevel, float currentXP)
+    {
+        this.currentLevel = currentLevel;
+        this.currentXP = currentXP;
+    }
+}

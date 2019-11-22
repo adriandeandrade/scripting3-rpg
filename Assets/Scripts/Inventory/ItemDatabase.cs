@@ -34,7 +34,7 @@ namespace enjoii.Items
                 {"Defence", 7}
             }),
 
-            new Item(2, "Health Potion", "Heals for 5 HP.", "item_health_potion",
+            new ConsumableItem(2, "Health Potion", "Heals for 5 HP.", "item_health_potion", 5,
             new Dictionary<string, int> { }
             ),
 
@@ -64,6 +64,12 @@ namespace enjoii.Items
         public GameObject GetSpawnablePrefab(int id)
         {
             Item itemToSearch = GetItem(id);
+
+            if (itemToSearch == null)
+            {
+                Debug.LogError($"Item with {id} was not found in the database.");
+                return null;
+            }
 
             string searchName = $"prefab_{itemToSearch.fileName}";
             GameObject prefab = Resources.Load<GameObject>($"Prefabs/Items/{searchName}");

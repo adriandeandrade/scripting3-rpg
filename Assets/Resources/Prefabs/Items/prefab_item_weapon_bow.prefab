@@ -100,8 +100,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 6065581960130789434, guid: e06e22735e67ba242b1f8f9a90f1edff,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b67d67436a1f1d478771be30fc6bd0e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,7 +125,7 @@ GameObject:
   - component: {fileID: 4174769652356059676}
   - component: {fileID: 1409538607}
   m_Layer: 0
-  m_Name: prefab_item_bow
+  m_Name: prefab_item_weapon_bow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,7 +181,7 @@ MonoBehaviour:
   itemID: 3
   drawBowKey: 32
   arrowGhostImage: {fileID: 4174769651608945739}
-  arrowSprite: {fileID: 21300000, guid: 981011ee5a6f1e142a9a9a39c5f640c9, type: 3}
+  arrowSprite: {fileID: 0}
   arrowPrefab: {fileID: 6279292550039662983, guid: e827c1e13a5306c4ba52ae3e3a196fee,
     type: 3}
   bowImage: {fileID: 8036759983411972337}

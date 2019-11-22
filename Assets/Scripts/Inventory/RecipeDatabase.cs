@@ -24,7 +24,7 @@ namespace enjoii.Items
                 if (craftingRecipe.requiredItems.OrderBy(i => i).SequenceEqual(recipe.OrderBy(i => i))) // Order elements in the recipe so recipe is shapeless.
                 {
                     return itemDatabase.GetItem(craftingRecipe.itemToCraft);
-                }
+    }
             }
 
             return null;

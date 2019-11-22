@@ -181,7 +181,7 @@ MonoBehaviour:
   itemID: 3
   drawBowKey: 32
   arrowGhostImage: {fileID: 4174769651608945739}
-  arrowSprite: {fileID: 0}
+  arrowSprite: {fileID: 21300000, guid: 9b67d67436a1f1d478771be30fc6bd0e, type: 3}
   arrowPrefab: {fileID: 6279292550039662983, guid: e827c1e13a5306c4ba52ae3e3a196fee,
     type: 3}
   bowImage: {fileID: 8036759983411972337}

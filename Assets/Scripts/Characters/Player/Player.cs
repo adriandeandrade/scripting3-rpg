@@ -19,6 +19,7 @@ namespace enjoii.Characters
         [Header("Stats")]
         [SerializeField] private PlayerStats playerStats;
         [SerializeField] private PlayerCharacterStats characterStats;
+        [SerializeField] private PlayerSaveManager playerSaveManager;
 
         [Header("Panels")]
         [SerializeField] private SlotPanel inventoryPanel;
@@ -38,6 +39,7 @@ namespace enjoii.Characters
 
         protected override void Awake()
         {
+            playerSaveManager = GetComponent<PlayerSaveManager>();
             EquipmentManager = GetComponent<EquipmentManager>();
             Inventory = GetComponent<Inventory>();
             characterStats = GetComponent<PlayerCharacterStats>();
@@ -64,124 +66,37 @@ namespace enjoii.Characters
             return true;
         }
 
+        public void HandleConsumable(ConsumableItem consumable)
+        {
+            Debug.Log($"Player used {consumable.name}");
+            IncreaseHealth(consumable.benefitAmount);
+        }
+
         public void Save()
         {
-            SlotPanelSaveData invPanel = SavePanel(inventoryPanel);
-            SlotPanelSaveData equipPanel = SavePanel(equipmentPanel);
+            SlotPanelData invPanel = playerSaveManager.SavePanel(inventoryPanel);
+            SlotPanelData equipPanel = playerSaveManager.SavePanel(equipmentPanel);
 
-            PlayerStatSaveData playerStatsData = SavePlayerStats(playerStats);
+            PlayerStatData playerStatsData = playerSaveManager.SavePlayerStats(playerStats);
 
-            PlayerData saveObject = new PlayerData(invPanel, equipPanel, playerStatsData);
+            TransformData transformData = playerSaveManager.SavePlayerTransform(transform);
 
-            string json = JsonUtility.ToJson(saveObject);
-            SaveSystem.Save(json);
+            PlayerData saveObject = new PlayerData(invPanel, equipPanel, playerStatsData, transformData);
+
+            FileReadWrite.WriteToJsonFile(saveObject);
         }
 
         public void Load()
         {
-            string saveString = SaveSystem.Load();
+            PlayerData saveObject = FileReadWrite.ReadFromJsonFile<PlayerData>();
 
-            if(saveString != null)
+            if(saveObject != null)
             {
-                PlayerData saveObject = JsonUtility.FromJson<PlayerData>(saveString);
-                LoadInventoryPanel(inventoryPanel, saveObject.inventoryPanel);
-                LoadEquipmentPanel(equipmentPanel, saveObject.equipmentPanel);
-                LoadPlayerStats(playerStats, saveObject.playerStats);
+                playerSaveManager.LoadInventoryPanel(Inventory, inventoryPanel, saveObject.inventoryPanel);
+                playerSaveManager.LoadEquipmentPanel(equipmentPanel, saveObject.equipmentPanel);
+                playerSaveManager.LoadPlayerStats(playerStats, saveObject.playerStats);
+                playerSaveManager.LoadPlayerTransform(transform, saveObject.transformData);
             }
-        }
-
-        private SlotPanelSaveData SavePanel(SlotPanel panel)
-        {
-            var saveData = new SlotPanelSaveData(panel.ItemSlots.Count);
-
-            for (int i = 0; i < saveData.SavedSlots.Length; i++)
-            {
-                BaseItemSlot itemSlot = panel.ItemSlots[i];
-
-                if (itemSlot.ItemInSlot == null)
-                {
-                    saveData.SavedSlots[i] = null;
-                }
-                else
-                {
-                    saveData.SavedSlots[i] = new BaseItemSlotData(itemSlot.ItemInSlot.id);
-                }
-            }
-
-            return saveData;
-        }
-
-        private void LoadInventoryPanel(SlotPanel panel, SlotPanelSaveData panelData)
-        {
-            if (panelData == null) return;
-
-            panel.EmptyAllSlots();
-            Inventory.ClearItems();
-
-            for (int i = 0; i < panelData.SavedSlots.Length; i++)
-            {
-                BaseItemSlot itemSlot = panel.ItemSlots[i];
-                BaseItemSlotData savedSlot = panelData.SavedSlots[i];
-
-                if (savedSlot.itemID == 0)
-                {
-                    itemSlot.ItemInSlot = null;
-                }
-                else
-                {
-                    itemSlot.ItemInSlot = GameManager.Instance.ItemDatabase.GetItem(savedSlot.itemID);
-                    itemSlot.UpdateSlot(itemSlot.ItemInSlot);
-                    Inventory.Items.Add(itemSlot.ItemInSlot);
-                }
-            }
-        }
-
-        private void LoadEquipmentPanel(SlotPanel panel, SlotPanelSaveData panelData)
-        {
-            if (panelData == null) return;
-
-            panel.EmptyAllSlots();
-            GameManager.Instance.PlayerRef.EquipmentManager.UnequipAll();
-
-            foreach (BaseItemSlotData savedSlot in panelData.SavedSlots)
-            {
-                if (savedSlot == null)
-                    continue;
-
-                Item item = GameManager.Instance.ItemDatabase.GetItem(savedSlot.itemID);
-                GameManager.Instance.PlayerRef.EquipmentManager.Equip(item as EquipmentItem);
-            }
-
-            //Debug.Log($"Equipment Loaded");
-        }
-
-        private PlayerStatSaveData SavePlayerStats(PlayerStats _playerStats)
-        {
-            var saveData = new PlayerStatSaveData(_playerStats.CurrentLevel, _playerStats.CurrentXP);
-
-            saveData.currentLevel = _playerStats.CurrentLevel;
-            saveData.currentXP = _playerStats.CurrentXP;
-
-            return saveData;
-        }
-
-        private void LoadPlayerStats(PlayerStats _playerStats, PlayerStatSaveData playerStatsData)
-        {
-            _playerStats.Load(playerStatsData);
-        }
-    }
-
-    public class PlayerData
-    {
-        public SlotPanelSaveData inventoryPanel;
-        public SlotPanelSaveData equipmentPanel;
-        public PlayerStatSaveData playerStats;
-
-        public PlayerData(SlotPanelSaveData inventoryPanel, SlotPanelSaveData equipmentPanel, PlayerStatSaveData playerStats)
-        {
-            this.inventoryPanel = inventoryPanel;
-            this.equipmentPanel = equipmentPanel;
-            this.playerStats = playerStats;
         }
     }
 }

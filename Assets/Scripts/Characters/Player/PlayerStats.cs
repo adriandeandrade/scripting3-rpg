@@ -79,7 +79,7 @@ public class PlayerStats : MonoBehaviour
         UpdateXPBar();
     }
 
-    public void Load(PlayerStatSaveData saveData)
+    public void Load(PlayerStatData saveData)
     {
         CurrentXP = saveData.currentXP;
         currentLevel = saveData.currentLevel;

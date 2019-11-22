@@ -82,6 +82,12 @@ public static class SaveSystem
     public static FileInfo[] GetSaveFiles()
     {
         DirectoryInfo directoryInfo = new DirectoryInfo(SAVE_FOLDER);
+
+        if(directoryInfo == null)
+        {
+            Init();
+        }
+
         FileInfo[] saveFiles = directoryInfo.GetFiles($"*.{SAVE_EXTENSION}");
         return saveFiles;
     }

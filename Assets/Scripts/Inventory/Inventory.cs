@@ -20,6 +20,11 @@ namespace enjoii.Items
         private void Start()
         {
             itemDatabase = GameManager.Instance.ItemDatabase;
+            GiveItem(1);
+            GiveItem(2);
+            GiveItem(3);
+            GiveItem(4);
+            GiveItem(5);
         }
 
         private void Update()

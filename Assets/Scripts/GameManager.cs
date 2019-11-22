@@ -27,12 +27,13 @@ public class GameManager : MonoBehaviour
     public void Initialize()
     {
         Debug.Log("Game Manager Initialized.");
-        SaveSystem.Init();
 
         RecipeDatabase = FindObjectOfType<RecipeDatabase>();
         ItemDatabase = FindObjectOfType<ItemDatabase>();
         SceneController = FindObjectOfType<SceneController>();
         player = FindObjectOfType<Player>();
+
+        SaveSystem.Init();
     }
 
     private void InitSingleton()

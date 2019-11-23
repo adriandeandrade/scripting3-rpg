@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7639857126910277995}
   - component: {fileID: 7965246723559787968}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952222774581306331}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.636, z: 0}
-  m_LocalScale: {x: 1.1676, y: 0.1049, z: 1}
+  m_LocalPosition: {x: 0.0001, y: -0.5446, z: 0}
+  m_LocalScale: {x: 0.80321306, y: 0.11863869, z: 1}
   m_Children: []
   m_Father: {fileID: 3113833014044701718}
   m_RootOrder: 2
@@ -150,8 +150,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: faf92cb3ee1fe4d4e9b70207eb17ca8a, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: c34043b920ef960439457963ccc6132f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -647,7 +647,7 @@ MonoBehaviour:
   healthBar: {fileID: 3113833012991856203}
   characterNameText: {fileID: 3113833012919549878}
   xpDropAmount: 5
-  lootDrops: 0100000002000000
+  lootDrops: 0100000002000000030000000400000005000000
   dieParticle: {fileID: 541660091346572526, guid: 866cc983bcbd89746a89acab3473453d,
     type: 3}
   dashSpeed: 12

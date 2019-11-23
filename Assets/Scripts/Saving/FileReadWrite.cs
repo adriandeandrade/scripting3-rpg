@@ -16,8 +16,6 @@ public static class FileReadWrite
     {
         string saveString = SaveSystem.Load();
 
-        Debug.Log(saveString);
-
         if (saveString != null)
         {
             var savedObject = JsonUtility.FromJson<T>(saveString);

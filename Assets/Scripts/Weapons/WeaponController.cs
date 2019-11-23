@@ -75,12 +75,15 @@ public class WeaponController : MonoBehaviour
 
     public void PerformWeaponAttack()
     {
-        IWeapon weapon = equippedWeapon.GetComponent<IWeapon>();
-
-        if(weapon != null)
+        if(equippedWeapon != null)
         {
-            // TODO: Change this so damage is based on stats instead.
-            weapon.PerformAttack((int)currentDamage);
+            IWeapon weapon = equippedWeapon.GetComponent<IWeapon>();
+
+            if (weapon != null)
+            {
+                // TODO: Change this so damage is based on stats instead.
+                weapon.PerformAttack((int)currentDamage);
+            }
         }
     }
 }

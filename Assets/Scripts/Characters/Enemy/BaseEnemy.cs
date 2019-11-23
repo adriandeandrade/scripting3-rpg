@@ -66,8 +66,11 @@ public abstract class BaseEnemy : BaseCharacter
             int nextItemSpawnID = lootDrops[randomIndex];
             Item itemToDrop = GameManager.Instance.ItemDatabase.GetItem(nextItemSpawnID);
 
-            GameObject lootItemInstace = Instantiate(GameManager.Instance.ItemDatabase.GetSpawnablePrefab(nextItemSpawnID), transform.position, Quaternion.identity);
-            lootItemInstace.GetComponent<ItemObject>().MoveItemInRandomDirection();
+            //GameObject lootItemInstace = Instantiate(GameManager.Instance.ItemDatabase.GetSpawnablePrefab(nextItemSpawnID), transform.position, Quaternion.identity);
+
+            ItemObject lootItemInstance = Instantiate(Resources.Load<GameObject>("Prefabs/Items/prefab_item_base"), transform.position, Quaternion.identity).GetComponent<ItemObject>();
+            lootItemInstance.SetItem(itemToDrop);
+            lootItemInstance.GetComponent<ItemObject>().MoveItemInRandomDirection();
         }
     }
 

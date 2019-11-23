@@ -58,6 +58,15 @@ namespace enjoii.Items.Slot
         public virtual void OnPointerDown(PointerEventData eventData)
         {
             OnSlotClickedEvent?.Invoke(this);
+
+            if(selectedItem.ItemInSlot == null)
+            {
+                tooltip.gameObject.SetActive(true);
+            }
+            else
+            {
+                tooltip.gameObject.SetActive(false);
+            }
         }
 
         public virtual void OnPointerEnter(PointerEventData eventData)

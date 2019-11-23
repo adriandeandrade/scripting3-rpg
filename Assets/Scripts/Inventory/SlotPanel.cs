@@ -36,8 +36,6 @@ namespace enjoii.Items
                 ItemSlots.Add(slotUIItem);
                 ItemSlots[i].ItemInSlot = null;
             }
-
-            LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
         }
 
         public void UpdateSlot(int slot, Item item)

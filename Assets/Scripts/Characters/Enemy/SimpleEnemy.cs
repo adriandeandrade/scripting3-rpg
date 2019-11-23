@@ -54,8 +54,9 @@ namespace enjoii.Characters
             SetState(EnemyStates.IDLE);
         }
 
-        private void Update()
+        protected override void Update()
         {
+            base.Update();
             UpdateState();
         }
 

@@ -123,7 +123,7 @@ public class Bow : MonoBehaviour, IWeapon
     {
         if(currentBowState == BowState.IDLE)
         {
-            //arrowGhostImage.sprite = arrowSprite;
+            arrowGhostImage.sprite = arrowSprite;
             SetState(BowState.DRAWING);
         }
     }

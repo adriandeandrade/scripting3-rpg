@@ -27,7 +27,7 @@ namespace enjoii.Items
         {
             items = new List<Item>()
         {
-            new Item(1, "Magical Essence", "Stuff that drops from enemies.", "item_magical_essence",
+            new Item(1, "Magical Essence", "Magical substance. Produced from Nature's Esscence", "item_magical_essence",
             new Dictionary<string, int>
             {
                 {"Power", 15},
@@ -45,17 +45,17 @@ namespace enjoii.Items
                 {"Defence", 1}
             }),
 
-            new EquipmentItem(4, "Strong Bow", "A stronger bow.", "item_weapon_strong_bow", EquipmentType.Weapon,
+            new EquipmentItem(4, "Eternal Cleric's Bow", "Eternal Cleric's Bow.", "item_weapon_strong_bow", EquipmentType.Weapon,
             new Dictionary<string, int>
             {
                 {"Power", 15},
                 {"Defence", 1}
             }),
 
-            new EquipmentItem(5, "Basic Armor", "Just a basic armor set.", "item_helmet_basic_armor", EquipmentType.Helmet,
+            new EquipmentItem(5, "Wooden Armor", "Just a basic armor set.", "item_helmet_basic_armor", EquipmentType.Helmet,
             new Dictionary<string, int>
             {
-                {"Power", 2},
+                {"Power", 0},
                 {"Defence", 2}
             }),
         };

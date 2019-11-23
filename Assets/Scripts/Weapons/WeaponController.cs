@@ -69,8 +69,6 @@ public class WeaponController : MonoBehaviour
         weapon = null;
         currentWeaponItem = null;
         equippedWeapon = null;
-
-        Debug.Log($"Item: was un equipped.");
     }
 
     public void PerformWeaponAttack()

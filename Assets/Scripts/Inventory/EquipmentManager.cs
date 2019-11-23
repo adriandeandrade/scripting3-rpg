@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using enjoii.Items;
+using enjoii.Characters;
 
 namespace enjoii.Items
 {
@@ -12,6 +13,7 @@ namespace enjoii.Items
         [SerializeField] private EquipmentPanel equipmentPanel;
 
         // Private Variables
+        private Player player;
         private EquipmentItem[] currentEquipment;
         private Inventory inventory;
         private WeaponController weaponController;
@@ -21,6 +23,8 @@ namespace enjoii.Items
 
         private void Awake()
         {
+            player = GetComponent<Player>();
+
             weaponController = GetComponent<WeaponController>();
             inventory = GameManager.Instance.PlayerRef.Inventory;
             int numSlots = System.Enum.GetNames(typeof(EquipmentType)).Length;
@@ -42,7 +46,7 @@ namespace enjoii.Items
             int slotIndex = (int)item.equipmentType;
             EquipmentItem oldItem = Unequip(slotIndex);
 
-            if(item.equipmentType == EquipmentType.Weapon)
+            if (item.equipmentType == EquipmentType.Weapon)
             {
                 if(weaponController == null)
                 {
@@ -54,6 +58,7 @@ namespace enjoii.Items
             }
 
             currentEquipment[slotIndex] = item;
+            player.CharacterStats.AddModifiers(item);
             inventory.RemoveItem(item.id);
             equipmentPanel.UpdateEquippableSlot(slotIndex, item);
         }
@@ -65,8 +70,10 @@ namespace enjoii.Items
             if (currentEquipment[slotIndex] != null)
             {
                 oldItem = currentEquipment[slotIndex];
+                player.CharacterStats.RemoveModifiers(oldItem);
                 inventory.GiveItem(oldItem.id);
 
+                
                 currentEquipment[slotIndex] = null;
                 weaponController.UnEquipWeapon();
                 equipmentPanel.UpdateEquippableSlot(slotIndex, null);

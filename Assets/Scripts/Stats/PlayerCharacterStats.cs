@@ -21,9 +21,8 @@ public class PlayerCharacterStats : CharacterStats
         {
             powerStat.RemoveModifier(item.stats["Power"]);
             defenceStat.RemoveModifier(item.stats["Defence"]);
+            Debug.Log(powerStat.GetValue());
+            Debug.Log(defenceStat.GetValue());
         }
-
-        Debug.Log(powerStat.GetValue());
-        Debug.Log(defenceStat.GetValue());
     }
 }

@@ -11,9 +11,12 @@ public abstract class BaseEnemy : BaseCharacter
     [SerializeField] private int xpDropAmount;
     [SerializeField] private List<int> lootDrops = new List<int>(); 
     [SerializeField] private GameObject dieParticle;
+    [SerializeField] private float hideHealthTime = 1.5f;
 
     // Private Variables
+    private bool showHealth = false;
     protected GameObject target;
+    private float currentShowHealthTime;
 
     // Events
     public event System.Action OnTargetLost;
@@ -38,6 +41,25 @@ public abstract class BaseEnemy : BaseCharacter
             {
                 return target;
             }
+        }
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        DisableHealthbar();
+    }
+
+    protected virtual void Update()
+    {
+        if(currentShowHealthTime > 0)
+        {
+            currentShowHealthTime -= Time.deltaTime;
+            return;
+        }
+        else
+        {
+            DisableHealthbar();
         }
     }
 
@@ -72,6 +94,20 @@ public abstract class BaseEnemy : BaseCharacter
             lootItemInstance.SetItem(itemToDrop);
             lootItemInstance.GetComponent<ItemObject>().MoveItemInRandomDirection();
         }
+    }
+
+    private void ShowHealth()
+    {
+        showHealth = true;
+        currentShowHealthTime = hideHealthTime;
+
+        EnableHealthBar();
+    }
+
+    public override void TakeDamage(float amount)
+    {
+        base.TakeDamage(amount);
+        ShowHealth();
     }
 
     protected float GetDistanceToTarget()

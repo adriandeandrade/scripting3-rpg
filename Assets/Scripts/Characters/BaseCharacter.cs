@@ -15,7 +15,8 @@ namespace enjoii.Characters
         [SerializeField] protected float maxHealth = 100;
 
         [Header("Character UI Configuration")]
-        [SerializeField] private Image healthBar;
+        [SerializeField] protected Image healthBar;
+        [SerializeField] protected GameObject healthBarContainer;
         [SerializeField] private TextMeshProUGUI characterNameText;
 
         // Private Variables
@@ -30,12 +31,12 @@ namespace enjoii.Characters
 
         protected virtual void Awake()
         {
-            if(rBody == null)
+            if (rBody == null)
             {
                 rBody = GetComponent<Rigidbody2D>();
             }
 
-            if(characterNameText != null)
+            if (characterNameText != null)
             {
                 characterNameText.SetText(characterName);
             }
@@ -97,6 +98,22 @@ namespace enjoii.Characters
         public void DoKnockback(Vector2 direction, float force)
         {
             rBody.AddForce(direction.normalized * force, ForceMode2D.Impulse);
+        }
+
+        public void EnableHealthBar()
+        {
+            if (!healthBarContainer.activeSelf)
+            {
+                healthBarContainer.SetActive(true);
+            }
+        }
+
+        public void DisableHealthbar()
+        {
+            if (healthBarContainer.activeSelf)
+            {
+                healthBarContainer.SetActive(false);
+            }
         }
 
         public virtual void OnHit(GameObject thisGameObject)

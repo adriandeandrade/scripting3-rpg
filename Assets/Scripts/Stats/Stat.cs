@@ -6,6 +6,8 @@ using UnityEngine;
 public class Stat
 {
     [SerializeField] private int baseValue;
+    [SerializeField] private int finalValue;
+    
 
     private List<int> modifiers = new List<int>();
 
@@ -21,6 +23,7 @@ public class Stat
         if(modifier != 0)
         {
             modifiers.Add(modifier);
+            finalValue = GetValue();
         }
     }
 
@@ -29,6 +32,7 @@ public class Stat
         if (modifier != 0)
         {
             modifiers.Remove(modifier);
+            finalValue = GetValue();
         }
     }
 

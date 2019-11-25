@@ -8,6 +8,13 @@ public class EnemySpawnerDebug : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private GameObject enemyPrefab;
 
+    bool started = false;
+
+    private void Start()
+    {
+        
+    }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.T))
@@ -19,5 +26,23 @@ public class EnemySpawnerDebug : MonoBehaviour
     private void SpawnEnemy()
     {
         Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+    }
+
+    private IEnumerator SpawnEnemiesRoutine()
+    {
+        while(true)
+        {
+            SpawnEnemy();
+            yield return new WaitForSeconds(8f);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Player") && !started)
+        {
+            StartCoroutine(SpawnEnemiesRoutine());
+            started = true;
+        }
     }
 }

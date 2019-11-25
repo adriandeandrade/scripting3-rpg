@@ -140,7 +140,7 @@ public class Bow : MonoBehaviour, IWeapon
 
     private void ShootArrow()
     {
-        Arrow newArrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity).GetComponent<Arrow>();
+        Arrow newArrow = Instantiate(arrowPrefab, bowImage.transform.position, Quaternion.identity).GetComponent<Arrow>();
         newArrow.transform.parent = null;
         newArrow.transform.localScale = Vector3.one;
 

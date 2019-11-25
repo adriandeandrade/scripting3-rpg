@@ -18,6 +18,16 @@ public class ItemObject : MonoBehaviour
     {
         rBody = GetComponent<Rigidbody2D>();
     }
+    private void Start()
+    {
+        if (itemID != null)
+        {
+            Debug.Log(itemID);
+
+            Item item = GameManager.Instance.ItemDatabase.GetItem(itemID);
+            SetItem(item);
+        }
+    }
 
     public void SetItem(Item item)
     {

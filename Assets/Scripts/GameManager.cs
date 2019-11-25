@@ -9,7 +9,7 @@ using System.IO;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    [HideInInspector] public Dialog startingDialog;
+    [HideInInspector] public Dialogue startingDialog;
 
     private Player player;
     public Player PlayerRef
@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
     {
         InitSingleton();
 
+        startingDialog = Resources.Load<Dialogue>("Dialog/InitialDialogue");
+
         RecipeDatabase = FindObjectOfType<RecipeDatabase>();
         ItemDatabase = FindObjectOfType<ItemDatabase>();
         SceneController = FindObjectOfType<SceneController>();
@@ -59,11 +61,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        startingDialog = Resources.Load<Dialog>("Dialog/InitialDialogue");
+       
 
-        Debug.Log(startingDialog.instructions.Count);
+        //Debug.Log(startingDialog.instructions.Count);
 
-        //DialogManager.Instance.StartDialog(startingDialog);
+        //DialogueManager.Instance.SetDialogue(startingDialog);
     }
 
     public void Save()

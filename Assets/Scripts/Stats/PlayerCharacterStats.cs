@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 using enjoii.Items;
+using System.Text;
 
 public class PlayerCharacterStats : CharacterStats
 {
+    [SerializeField] private TextMeshProUGUI statsText;
+
     public void AddModifiers(EquipmentItem item)
     {
         if (item != null)
@@ -24,5 +28,18 @@ public class PlayerCharacterStats : CharacterStats
             Debug.Log(powerStat.GetValue());
             Debug.Log(defenceStat.GetValue());
         }
+    }
+
+    public void UpdateStatText()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        int powerValue = powerStat.GetValue();
+        int defenceValue = defenceStat.GetValue();
+
+        sb.AppendLine($"Power: {powerValue}");
+        sb.AppendLine($"Defence: {defenceValue}");
+
+        statsText.SetText(sb.ToString());
     }
 }

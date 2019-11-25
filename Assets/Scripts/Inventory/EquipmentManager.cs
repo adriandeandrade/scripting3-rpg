@@ -55,10 +55,17 @@ namespace enjoii.Items
                 }
 
                 weaponController.EquipWeapon(item);
+
+                currentEquipment[slotIndex] = item;
+                player.CharacterStats.UpdateStatText();
+                inventory.RemoveItem(item.id);
+                equipmentPanel.UpdateEquippableSlot(slotIndex, item);
+                return;
             }
 
             currentEquipment[slotIndex] = item;
             player.CharacterStats.AddModifiers(item);
+            player.CharacterStats.UpdateStatText();
             inventory.RemoveItem(item.id);
             equipmentPanel.UpdateEquippableSlot(slotIndex, item);
         }
@@ -71,6 +78,7 @@ namespace enjoii.Items
             {
                 oldItem = currentEquipment[slotIndex];
                 player.CharacterStats.RemoveModifiers(oldItem);
+                player.CharacterStats.UpdateStatText();
                 inventory.GiveItem(oldItem.id);
 
                 

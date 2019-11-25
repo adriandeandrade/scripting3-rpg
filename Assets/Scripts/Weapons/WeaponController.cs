@@ -60,12 +60,12 @@ public class WeaponController : MonoBehaviour
 
     public void UnEquipWeapon()
     {
+        player.CharacterStats.RemoveModifiers(currentWeaponItem);
         if (equippedWeapon != null)
         {
             Destroy(equippedWeapon);
         }
 
-        player.CharacterStats.RemoveModifiers(currentWeaponItem);
         weapon = null;
         currentWeaponItem = null;
         equippedWeapon = null;

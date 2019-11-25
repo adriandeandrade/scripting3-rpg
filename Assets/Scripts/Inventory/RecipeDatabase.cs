@@ -39,7 +39,7 @@ namespace enjoii.Items
                 {
                     0, 0, 0,
                     0, 0, 0,
-                    1, 2, 0
+                    1, 1, 0
                 }),
 
             new CraftingRecipe(4, // Crafts strong bow.
@@ -48,6 +48,22 @@ namespace enjoii.Items
                     0, 1, 0,
                     0, 1, 0,
                     0, 3, 0
+                }),
+
+            new CraftingRecipe(2, // Crafts health potion.
+                new int[]
+                {
+                    0, 0, 0,
+                    0, 1, 0,
+                    0, 0, 0
+                }),
+
+            new CraftingRecipe(5, // Crafts health potion.
+                new int[]
+                {
+                    0, 1, 0,
+                    0, 1, 0,
+                    0, 1, 0
                 }),
         };
         }

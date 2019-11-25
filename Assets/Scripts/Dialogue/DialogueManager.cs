@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
-public class DialogManager : MonoBehaviour
+public class DialogueManager : MonoBehaviour
 {
     #region Singleton
-    private static DialogManager instance;
-    public static DialogManager Instance
+    private static DialogueManager instance;
+    public static DialogueManager Instance
     {
         get
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<DialogManager>();
+                instance = FindObjectOfType<DialogueManager>();
             }
             return instance;
         }
@@ -23,6 +24,8 @@ public class DialogManager : MonoBehaviour
 
     // Public Variables
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private TextMeshProUGUI continueButtonText;
+    [SerializeField] private Button continueButton;
 
     // Private Variables
     private Queue<string> sentences;
@@ -47,9 +50,11 @@ public class DialogManager : MonoBehaviour
         StartCoroutine(TypeSentence(sentence));
     }
 
-    public void StartDialog(Dialog dialogue)
+    public void SetDialogue(Dialogue dialogue)
     {
-        //animator.SetBool("IsOpen", true);
+        animator.SetBool("IsOpen", true);
+        continueButtonText.SetText("CONTINUE");
+        continueButton.interactable = true;
         hasSentence = true;
 
         sentences.Clear();
@@ -59,7 +64,7 @@ public class DialogManager : MonoBehaviour
             sentences.Enqueue(sentence);
         }
 
-        DisplayNextSentence();
+        //DisplayNextSentence();
     }
 
     public void StartEndDialogue()
@@ -69,7 +74,12 @@ public class DialogManager : MonoBehaviour
 
     public void DisplayNextSentence()
     {
-        if (sentences.Count == 1)
+        if(sentences.Count == 1)
+        {
+            continueButtonText.SetText("CLOSE");
+        }
+
+        if (sentences.Count == 0)
         {
             StartEndDialogue();
             return;
@@ -91,12 +101,25 @@ public class DialogManager : MonoBehaviour
 
     IEnumerator EndDialogue()
     {
-        string sentence = sentences.Dequeue();
-        StartTypingSentence(sentence);
+        continueButton.interactable = false;
+        //yield return new WaitForSeconds(0.5f);
 
-        yield return new WaitForSeconds(3f);
+        animator.SetBool("IsOpen", false);
 
-        //animator.SetBool("IsOpen", false);
+        yield break;
+    }
+
+    // Animation event from dialogue panel.
+    public void OnOpen()
+    {
+        Debug.Log("Dialogue box finished opening.");
+        DisplayNextSentence();
+    }
+
+    // Animation event from dialogue panel.
+    public void OnClose()
+    {
+
     }
 }
 

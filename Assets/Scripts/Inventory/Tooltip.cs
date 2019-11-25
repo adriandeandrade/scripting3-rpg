@@ -26,7 +26,7 @@ namespace enjoii.Items
             }
 
             itemNameText.SetText(item.name);
-            itemDescriptionText.SetText(statText);
+            itemDescriptionText.SetText(item is ConsumableItem ? ($"Right Click to Use\n {statText}") : statText);
             gameObject.SetActive(true);
         }
     }

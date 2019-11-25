@@ -647,8 +647,8 @@ MonoBehaviour:
   healthBar: {fileID: 3113833012991856203}
   healthBarContainer: {fileID: 3113833014022614243}
   characterNameText: {fileID: 3113833012919549878}
-  xpDropAmount: 5
-  lootDrops: 0100000002000000030000000400000005000000
+  xpDropAmount: 35
+  lootDrops: 01000000
   dieParticle: {fileID: 541660091346572526, guid: 866cc983bcbd89746a89acab3473453d,
     type: 3}
   hideHealthTime: 1.5

@@ -26,6 +26,7 @@ public class SceneSwitcher : MonoBehaviour
 
         Debug.Log("Scene Finished loading now destroying.");
         GameManager.Instance.Initialize();
+        //DialogueManager.Instance.SetDialogue(GameManager.Instance.startingDialog);
         Destroy(gameObject);
     }
 }

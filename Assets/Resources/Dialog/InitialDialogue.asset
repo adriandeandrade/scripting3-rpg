@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3b1961cd8e25b14bb32624b1ed6713b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c633eda86b24164db8fb31c4c14ddbb, type: 3}
   m_Name: InitialDialogue
   m_EditorClassIdentifier: 
   instructions:
-  - Hello.
-  - This is a test.
-  - Dont be afraid!
+  - Welcome to [insert title.]
+  - Pickup and equip the bow to begin.
+  - To equip the bow, open the inventory with [TAB] and right click on the bow to
+    equip it.

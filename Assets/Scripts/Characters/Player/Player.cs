@@ -50,6 +50,7 @@ namespace enjoii.Characters
         protected override void Start()
         {
             base.Start();
+            characterStats.UpdateStatText();
         }
 
         public void OnXPAdded(float amount)
